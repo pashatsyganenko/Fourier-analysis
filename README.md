@@ -1,2 +1,3 @@
-# Fourier-analysis
-Lecture notes on Fourier analysis given by S.V. Kislyakov in the 2024/25 academic year
+Анализ Фурье
+Конспект лекций, прочитанных Сергеем витальевичем Кисляковым для студентов третьего курса в 2024/2025 учебном году.
+
