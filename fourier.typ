@@ -1041,3 +1041,5 @@ $ sup_N abs(f * Phi_N) <= C M_TT f. $
 #align(center, box(stroke: (gradient.linear(..color.map.rainbow)), inset: 1em)[$ integral_G d Omega = integral_(partial G) Omega $])
 где $Omega$ -- внешняя дифференциальная форма, $d$ -- внешний дифференциал, $G$ -- ориенируемое многообразие с краем $partial G$, $dim G = k$, $G subset.eq RR^n$.\
 Тут разгон про дифференциальные формы, который я не записал.
+
+Абоба
