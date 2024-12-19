@@ -1079,3 +1079,90 @@ $ I_Psi (G) = I_("Alt"#h(0.3mm)Psi) (G). $
 - $k$-форма -- альтернирование формы $omega_(i_1,dots,i_k) (h^((1)),dots,h^((k))) = h_(i_1)^((1)) dots h_(i_k)^((k))$.
 Введём обозначение $"Alt"#h(1mm)omega_(i_1,dots,i_k) = d x_(i_1) and dots and d x_(i_k)$, тогда
 $ "Alt"#h(1mm)omega_(i_1,dots,i_k) (h^((1)),dots,h^((k))) = 1/(k!) det (h_(i l)^((m)))_(i,l = 1)^k. $
+// Лекция 12 (20.11.2024)
+Итак, всякая кососимметричная дифференциальная форма порядка $k$ в $U subset.eq RR^n$ имеет вид
+$ Omega = sum_(i_1,dots,i_k) omega_(i_1,dots,i_k) d x_(i_1) and dots and d x_(i_k), $
+где $omega_(i_1,dots,i_k)$ -- функции, заданные в $U$,
+$ d x_(i_1) and dots and d x_(i_k) (h_(i_1)^((1)),dots,h_(i_k)^((k))) = "Alt"(h_(i_1)^((1)),dots,h_(i_k)^((k))). $
+Такие формы не совсем базисные, так как они не обязательно линейно независимо, но можно всегда упорядочить переменные по возрастанию, однако запись получится весьма громоздкой, из-за чего часто допускается писать линейно зависимые части.
+
+Внешнее произведение элементарных кососимметричных форм $ Omega_1 = omega d x_(i_1) and dots and d x_(i_k) quad "и" quad Omega_2 = eta d x_(j_1) and dots and d x_(j_l) $
+это форма $ Omega_1 and Omega_2 = omega eta d x_(i_1) and dots and d x_(i_k) and d x_(j_1) and dots and d x_(j_l), $
+на общий случай определение продолжается по линейности.
+
+Если $f$ -- форма порядка ноль, то
+$ d f = sum_(j=1)^n frac(partial f, partial x_j) d x_j. $
+Для произвольной элементарной кососимметричной формы $Omega = omega_(i_1, dots, i_k) d x_(i_1) and dots and d x_(i_k)$ её внешний дифференциал по определению равен $ d Omega = (d omega_(i_1, dots, i_k)) and d x_(i_1) and dots and d x_(i_k), $
+на общий случай, опять же, продолжаем по линейности.
+
+#svo
++ Внешний дифференциал превращает $k$ формы в $k+1$ формы.
++ Внешний дифференциал линеен.
++ $Omega_1 and Omega_2 = (-1)^(k l) Omega_2 and Omega_1$.
++ $d (Omega_1 and Omega_2) = d Omega_1 and Omega_2 + (-1)^k Omega_1 and d Omega_2. $
+  #proof[
+    Можно считать, что $Omega_1 = f d x_(i_1) and dots and d x_(i_k)$, $Omega_2 = g d x_(j_1) and dots and d x_(j_k)$.
+    $ Omega_1 and Omega_2 = f g thin d x_(i_1) and dots and d x_(i_k) and d x_(j_1) and dots and d x_(j_l), $
+    $ d (Omega_1 and Omega_2) = (g d f + f d g) and x_(i_1) and dots and x_(i_k) and x_(j_1) and dots and x_(j_l) = $
+    $ = d Omega_1 and Omega_2 + f (d g and x_(i_1) and dots and x_(i_k) and x_(j_1) and dots and x_(j_l)) = d Omega_1 and Omega_2 + (-1)^k Omega_1 and d Omega_2. $
+  ]
++ $d d Omega = 0$, если, конечно же, коэффициенты в $C^2$.
+  #proof[
+    Вновь можно считать, что $Omega = f d x_(i_1) and dots and d x_(i_k)$. Тогда
+    $ d Omega = d f and x_(i_1) and dots and d x_(i_k), $
+    $ d d Omega = d d f and x_(i_1) and dots and d x_(i_k) + (-1)^k d f and d (x_(i_1) and dots and d x_(i_k)) $
+    Понятно, что второе слагаемое равно нулю. Первое тоже, так как
+    $ d f = frac(partial f, partial x_1) d x_1 + dots + frac(partial f, partial x_n) d x_n, $
+    $ d d f = sum_(i=1)^n (sum_(j=1)^n frac(partial^2 f,partial x_i partial x_j) d x_j) and d x_i = 0. $
+  ]
++ Нетрудно видеть, что $ (sum_(j=1)^k t_(1,j) d x_(i_j)) and (sum_(j=1)^k t_(2,j) d x_(i_j)) and dots and (sum_(j=1)^k t_(k,j) d x_(i_j)) = det(t_(i j)) thin d x_(i_1) and dots and d x_(i_k). $
++ Замена переменных.. Пусть $G$ -- область в $RR^n$ и $E$ -- область в $RR^m$. $Phi: E -> G$ -- гладкое отображение, дифференцируемое сколько надо раз. Пусть в $G$ имеется $k$-форма
+  $ Omega = sum_(i_1,dots,i_k) omega_(i_1,dots,i_k) d x_(i_1) and dots and d x_(i_k) $
+  $Phi$ представляется координатными функциями $Phi_1, dots, Phi_n$. Мы хотим определить композицию $Omega compose Phi$.
+  #box(stroke: 0.5pt, inset: 5mm)[
+    _Сергей Витальевич: Мнемоническое правило: подставляем $Phi$ всюду, где можно.\
+    Богдан: А где нельзя?\
+    Сергей Витальевич: А где нельзя, там и не подставить._]\
+  $ Omega compose Phi = sum_(i_1,dots,i_k) omega_(i_1,dots,i_k) compose Phi med d Phi_(i_1) and dots and d Phi_(i_k). $
+  Теперь покажем, что $ d(Omega compose Phi) = (d Omega) compose Phi. $
+  #proof[
+    $ d (Omega compose Phi) = sum_(i_1,dots,i_k) [d(omega_(i_1,dots,i_k) compose Phi) and Phi_(i_1) and dots and Phi_(i_k) + omega_(i_1,dots,i_k) compose Phi med d (d Phi_(i_1) and dots and d Phi_(i_k))] = $
+    $ = sum_(i_1,dots,i_k) d(omega_(i_1,dots,i_k) compose Phi) and Phi_(i_1) and dots and Phi_(i_k), $
+    $ d Omega = sum_(i_1,dots,i_k) [partial_1 omega_(i_1,dots,i_k) d x_(i_1) + dots + partial_n omega_(i_1,dots,i_k) d x_(i_n)] and d x_(i_1) and dots and d x_(i_k). $
+    Подставим $Phi$ в одно слагаемое: $partial_1 omega_(i_1,dots,i_k) compose Phi d Phi_1 + dots + partial_n omega_(i_1,dots,i_k) compose Phi d Phi_n$, подставляя далее, выскакивают строки матрицы Якоби отображения $Phi$, в общем упражнение читателю.
+  ]
++ Пусть $Omega = sum_(i_1,dots,i_k) omega_(i_1,dots,i_k) d x_(i_1) and dots d x_(i_k)$ -- $k$-форма в $RR^n$, $X: G -> RR^n$, где $G$ -- область в $RR^k$. Тогда
+  $ integral_X Omega = integral_(id_G) Omega compose X, $
+  где $id_G$ -- карта, в которой $G$ сама себя параметризует. Чтобы не возникало вопросов почему мы интегрируем по отображениям, положим
+  $ integral_X Omega = sum_(i_1,dots,i_k) integral_G omega_(i_1,dots,i_k) compose X(u) det(frac(partial X^j (u),partial u_i)) d u. $
+  #proof[
+    $ Omega compose X = sum_(i_1,dots,i_k) omega_(i_1,dots,i_k) compose X med d X^(i_1) and dots and d X^(i_k), $
+    $ d X^j = partial_1 X^j d u_1 + dots + partial_k X^j d u_k, $
+    $ d X^(i_1) and dots and d X^(i_k) = det(frac(partial X^j,partial u_i)) d u_1 and dots and d u_k. $
+    #text(fill: author)[Как сказал бы сейчас Андрей Чураков, _ну и всё тогда_.]]
+
+Пусть $U subset.eq RR^k$ -- открытое множество, $M$ -- компактное ориентируемое многообразие размерности $k$ с краем. Пусть ${X_alpha}_(alpha in Lambda)$ -- ориентированный атлас для $M$. Каждое $X_alpha$ задано либо на кубе $Delta = (-1,1)^k$, либо на $tilde(Delta) = (-1,0] times (-1,1)^(k-1)$. Тем самым край будет объединением образов сужений отображений второго случая на $Delta_0 = {0} times (-1,1)^(k-1)$.
+#lemma("о разбиении единицы")[
+  Пусть $K subset.eq RR^n$ компактно. Тогда существуют $eta_1, dots, eta_s in cal(D)(RR^n)$ такие что $eta_i >= 0$, $sum_(i=1)^s eta_i <= 1$ и $sum_(i=1)^s eta_i (x) = 1$ при $x in K$. Причём диаметры носителей $eta_i$ сколь угодно малы.#footnote[#h(1mm)То есть зная изначально какой-то $epsilon>0$, можно устроить разбиение, у которого диаметры всех носителей меньше $epsilon$]#footnote[#h(1mm)#text(fill: author)[Кажется, обычно не оценивают единицей сумму $eta_i$ везде, а просто требуют, чтобы они не превосходили единицу]]
+]
+Согласно лемме Лебега о покрытии, можно считать, что каждый носитель $eta_i$ лежит в пределах какой-то координатной карты $U_i$. Пусть $Omega$ -- $(k-1)$-форма. Тогда $ integral_M Omega := sum_(i=1)^s integral_(U_i) eta_i Omega. $
+
+#fact[
+  Определение не зависит от разбиения единицы.
+]
+#proof[
+  Пусть ${theta_j}_(j=1)^t$ -- ещё одно разбиение единицы и носители лежат в пределах координатных карт. Можем считать, что всё происходит в одном атласе, при необходимости их смешав.
+  $ integral_M eta_i Omega = integral_(X_alpha(i)) eta_i Omega = sum_(j=1)^t integral_(X_alpha(i)) eta_i theta_j Omega = sum_(j=1)^t integral_(X_alpha(j)) eta_i theta_j Omega. $
+  Просуммируем по $i$. Поменяв ролями $eta$ и $theta$ придём к тому, что требуется.
+]
+// Лекция 13 (27.11.2024)
+
+
+
+
+
+
+
+
+
+
