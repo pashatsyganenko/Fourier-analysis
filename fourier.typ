@@ -15,6 +15,7 @@
   v(12pt, weak: true)
   strong(it)
 }
+#show outline: set text(size: 10.5pt, fill: black)
 
 #set page(width: 210mm, height: 297mm, margin: 1.5cm, numbering: none, number-align: right, header: [#counter(footnote).update(0)])
 #set heading(numbering: "1.")
@@ -34,6 +35,8 @@
 #let author = rgb("#DC143C"); //цвет комментарий Павла Юрича
 #let scal(fst,scn) = $angle.l fst, scn angle.r$ // скалярное произведение
 #let svo = text(12pt)[#underline[_Свойства_]:\ ] //СВОйства
+#let diam = "diam"
+#let supp = "supp"
 #let ru_alph(pattern: "а)") = { // Это всё для РУZZКОЙ нумерации
   let alphabet = "абвгдежзиклмнопрстуфхцчшщэюя".split("")
   let f(i) = {
@@ -55,20 +58,21 @@
   f
 }
 
-
 //Конспект написан на основе лекций Сергея Витальевича Кислякова, прочитанных в осеннем семетре 2024-2025 учебного года. Конспект написан #link("https://t.me/ariviento")[Павлом Цыганенко].
 
 #v(13cm)
-#align(text(40pt, font: "Linux Biolinum O")[*АНАЛИЗ ФУРЬЕ*])
+#align(text(42pt, font: "Linux Biolinum O")[*АНАЛИЗ ФУРЬЕ*])
 #v(-5mm)
-#align(text(15pt, font: "Comfortaa")[_Сергей Витальевич Кисляков_])
+#align(text(17pt, font: "Comfortaa")[_Сергей Витальевич Кисляков_])
+#align(text(12pt, font: "Linux Biolinum O")[*_КОНСПЕКТ ЗА АВТОРСТВОМ ПАВЛА ЦЫГАНЕНКО_*])
 //#v(37mm)
 #align(right+bottom, image(ipath+"furry-on-cover.png", width: 30%))
 #pagebreak()
 //#align(center, text(20pt, font: "Comfortaa")[*СОДЕРЖАНИЕ*]) //C059 хорош
 #set page(numbering: "1")
 #counter(page).update(1)
-//#align(center, text(17pt, font: "Roboto")[*Конспект за авторством Павла Цыганенко*])
+
+
 #outline(title: "Содержание", indent: 1em,)
 #pagebreak()
 
@@ -96,7 +100,7 @@
 + $gamma(x)gamma(-x) = gamma(0) = 1$.
 ]\
 Отсюда следует, что характеры группы $G$ сами образуют группу относительно поточечного умножения. Единицей в этой группе является функция $gamma_0: G -> TT$, тождественно равная $1$.
-Группа характеров $G$ обозначается как $hat(G)$ или $Gamma$. #text(author)[Так как шляпка в тайпсте не всегда отображается красиво, то я буду пользоваться и тем, и другим обозначением, так что не путайтесь.]
+Группа характеров $G$ обозначается как $hat(G)$ или $Gamma$. #text(author)[Так как шляпка в тайпсте не всегда отображается красиво, то я буду пользоваться и тем, и другим обозначениями, так что не путайтесь.]
 Давайте вычислим характеры основных наших групп.
 
 == Характеры $ZZ$
@@ -155,6 +159,7 @@ $ Gamma(RR) = {x arrow.r.long.bar e^(2 pi i xi x)}_(xi in RR) $
   Все характеры на $RR^n$ имеют вид $ gamma(x_1,dots,x_n) = e^(2 pi i x_1 y_1) dot dots dot e^(2 pi i x_n y_n), $ где векторы $y = (y_1,dots,y_n)^T$ пробегают $RR^n$.\
   Для тора $TT^n$ все характеры имеют вид $ gamma(e^(i t_1),dots,e^(i t_n)) = product_(i = 1)^n e^(i k_i t_i) = e^(i angle.l k,t angle.r), quad t in RR^n, #h(2mm) k in ZZ^n. $
 
+#pagebreak()//АККУРАТНО ТУТ
 = Мера Хаара
 //В основном дадим просто информацию.
 #definition[
@@ -218,7 +223,7 @@ $ Gamma(RR) = {x arrow.r.long.bar e^(2 pi i xi x)}_(xi in RR) $
 - Теперь пусть $f$ и $g$ --  функции на окружности. Тогда $ (f * g)(xi) = (1/(2pi)) integral_(TT) f(xi eta^(-1)) g(eta) d eta, quad xi in TT. $
 
 Понятно, что функции на окружности находятся во взаимно однозначном соответствии с\ $2 pi$-периодическими функциями на $RR$. Давайте поймём как их интегрировать.
-#figure(rect[#image(ipath+"chzh.jpg", width: 25%)], caption: [май хонест риэкшон])
+#figure(rect[#image(ipath+"chzh.jpg", width: 25%)], caption: [my honest reaction])
 Пусть $I = [a,b]$ -- любой отрезок длины $2 pi$. Простое вращение отображает этот отрезок на $TT$ взаимно однозначно с точностью до концов (однако две точки -- множество меры ноль, в нашем случае). Ясно также, что при этом отображении мера Лебега на $I$ переходит в меру Лебега на $TT$, поэтому $ 1/(2 pi) integral_TT h(xi) d mu(xi) = 1/(2 pi) integral_a^b h(e^(i x)) d x. $
 Соответственно, формула для свёртки превращается в формулу свёртки для $2 pi$ -- периодических функций на $RR$.
 $ (u * v)(x) = 1/(2 pi) integral_a^b u(x-y) v(y) d y $
@@ -308,7 +313,7 @@ $ f(e^(i t)) = sum_(n in ZZ) hat(f)(n) e^(i n t). $
 Пусть $mu$ -- произвольная неотрицательная мера на пространстве $S$. Тогда на пространстве $L^2 (mu)$ можно стандартным образом ввести скалярное произведение: $ angle.l f, g angle.r = integral_S f(t) overline(g(t)) d mu(t). $
 В частном случае, когда $S = {1,dots,n}$, а мера $mu$ считающая, для $a = {a_j}_(j=1)^n$, #h(1mm) $b = {b_j}_(j=1)^n$:
 $ angle.l a,b angle.r = sum_(j=1)^n a_j overline(b_j). $
-Это отличается от того, что было на первом курсе комплексным сопряжением над $b$, потому что тогда мы работали с $RR^n$, а сейчас с $CC^n$, #text(author)[но кому я это пишу, это и так понятно.]
+Это отличается от того, что было на первом курсе комплексным сопряжением над $b$, потому что тогда мы работали с $RR^n$, а сейчас с $CC^n$.
 $ scal(f,f) = norm(f)_(L^2 (mu)), quad scal(f,g) = overline(scal(g,f)). $
 Также вспомним неравенство Коши-Буняковского (частный случай неравенства Гёльдера): $ abs(scal(f,g)) <= norm(f)_(L^2 (mu)) dot norm(g)_(L^2 (mu)). $
 
@@ -330,10 +335,8 @@ $ scal(f,f) = norm(f)_(L^2 (mu)), quad scal(f,g) = overline(scal(g,f)). $
 #definition[
   Две функции $f, g in L^2 (mu)$ называются ортогональными, если $ scal(f,g) = 0. $
 ]
-#text(author)[Кто бы мог подумать.]
 
 Таким образом, характеры компактной абелевой группы попарно ортогональны, более того, если мера Хаара сама нормированна, то характеры тоже: $ norm(gamma)_(L^2 (mu)) = scal(gamma,gamma) = integral_G bold(1) d lambda = 1. $
-#figure(rect[#image(ipath+"anti-furry.jpg", width: 40%)], caption: [⊂(◉‿◉)つ])
 
 // Лекция 3 (18.09.2024)
 == Ортонормированные системы
@@ -645,7 +648,7 @@ $ hat(Phi)(zeta) = (hat(phi)(zeta))^2 >= 0 $
   $ forall k in NN quad abs(hat(f)(xi)) (1 + abs(xi)^k) arrow.long_(abs(xi) -> infinity) 0. $
   // Лекция 6 (09.10.2024)
   Объясняется это так: если $f$ суммируема $k$ раз и все её производные до порядка $k$ суммируемы, то для $inline(sum_(i=1)^n alpha_n <= k)$ выполнено $ (partial_1^(alpha_1) dots thin partial_n^(alpha_n) f)^(and) = (2pi i xi_1)^(alpha_1) dots thin (2pi i xi_n)^(alpha_1) hat(f) (xi). $
-  #text(fill: author)[Тут Кисляков написал перед множителями минусы, но видимо это проблема обозначений и нормировок, раз у нас в Фурье экспонента с минусом, то тут он не возникнет.\ ]
+  #text(fill: author)[Тут Кисляков написал перед множителями минусы, но видимо это проблема обозначений и нормировок, вроде такого быть не должно.\ ]
   Мы знаем, что у суммируемой функции преобразование Фурье ограничено, значит $exists C$ такая, что $ abs(hat(f) (xi)) <= C quad "и" quad (2pi abs(xi))^(alpha_1) dots (2pi abs(xi_n))^(alpha_n) abs(hat(f) (xi)) <= C $
   для всех мультииндексов $alpha = (alpha_1,dots,alpha_n)$. Просуммировав по всем мультииндексам, не превосходящим $k$, получим
   $ abs(hat(f) (xi)) underbrace(sum_(abs(alpha) <= k) (1 + abs(xi_1)^(alpha_1) dot dots abs(xi_n)^(alpha_n)), >= A (1+abs(xi))^k) <= C', $
@@ -879,7 +882,7 @@ $ u(r e^(i theta)) = 1/pi integral_(-pi)^pi f(e^(i (x-theta))) frac(1-r^2,1-2r c
 $ u(t,x) = integral_(-infinity)^infinity f(x-y) frac(t,pi(t^2+y^2)) d y, $
 $ frac((1-r)(1+r),(1-r)^2 + 2r(1-cos theta)) = frac((1-r)(1+r),(1-r)^2+4r sin^2 theta/2) $
 Заметно, что получаются весьма схожие вещи: $t$ похоже на $1-r$, а $x$ похоже на $2 sin theta/2$.
-
+#figure(rect[#image(ipath+"anti-furry.jpg", width: 40%)], caption: [⊂(◉‿◉)つ])
 = Сходимость свёрток почти всюду
 //"По современным _понятиям_, то, что я сейчас буду рассказывать входит в анализ Фурье" \u{00A9} С. В. Кисляков
 Из сходимости функций в $L^p$ следует, то можно выбрать подпоследовательность, сходящуюся почти всюду, но для каждой функции такая последовательность будет своя.
@@ -1029,9 +1032,8 @@ $ P_r (s) <= C dot frac(t,t^2+s^2). $
 Тем самым, искомая сходимость действительно есть, если $f in L^1(TT)$. Теперь ответим на тот же вопрос для ядер Фейера.
 $ Phi_N (s) = 1/(N+1) (frac(sin((N+1)/2)s,sin s/2))^2 <= C dot cases(N+1, 1/(N+1) dot 1/s^2) <= C dot frac(1/(N+1), 1/(N+1)^2 + s^2), quad t = 1/(N+1). $
 $ sup_N abs(f * Phi_N) <= C M_TT f. $
-
 = Многообразия и дифференциальные формы
-== Общие разговоры о формуле Стокса
+== Дифференциальные формы и формула Стокса
 В свзяи с тем, что в третьем семестре времени у нас было мало, мы не успели пройти такие важные вещи. В общем сейчас это упущение наверстаем. Суть проста -- интеграл по границе многообразия выражается через интерграл по всему многообразию.
 #example[
   Пусть $Gamma$ это стандартно ориентированная граница прямоугольника $[a,b] times [c,d]$,\ $Phi = f d x + g d y$ -- дифференциальная форма. Тогда
@@ -1067,9 +1069,9 @@ $ omega_(i_1,dots,i_k)(x) = Omega(x,e_(i_1),dots,e_(i_k)). $
 _Простое_ $k$-мерное многообразие $G$ в $U$ имеет карту $X: Delta = (-1,1)^k arrow.long^("на") G$ класса $C^1$.\
 Интеграл дифференциальной формы по такому многообразию определяется как $ I_Psi (G) =  integral_Delta sum_(i_1,dots,i_k) omega_(i_1,dots,i_k) compose X dot A^(i_1,dots,i_k) d lambda_k, $
 $ A^(i_1,dots,i_k) = det mat(
-  partial_1 X_(i_1) (u), ..., partial_k X_(i_1) (u);
+  partial_1 X_(i_1) (u), dots, partial_k X_(i_1) (u);
   dots.v, dots.down, dots.v;
-  partial_1 X_(i_k) (u), ..., partial_k X_(i_k) (u);). $
+  partial_1 X_(i_k) (u), dots, partial_k X_(i_k) (u);). $
 Для _непростых_ многообразий нужно устравивать гладкое разбиение единицы. Интеграл зависит от формы кососимметрично, поэтому если форма не меняется при перестановки двух переменных, то интеграл нулевой.
 $ Psi_1 (x,h^((1)),dots,h^((k))) = 1/(k!) sum_(s in S_k) (-1)^sigma(s) Psi(x,h^((s_1)),dots,h^((s_k))) = "Alt"#h(0.3mm)Psi, $
 $ I_Psi (G) = I_("Alt"#h(0.3mm)Psi) (G). $
@@ -1145,7 +1147,7 @@ $ d f = sum_(j=1)^n frac(partial f, partial x_j) d x_j. $
 #lemma("о разбиении единицы")[
   Пусть $K subset.eq RR^n$ компактно. Тогда существуют $eta_1, dots, eta_s in cal(D)(RR^n)$ такие что $eta_i >= 0$, $sum_(i=1)^s eta_i <= 1$ и $sum_(i=1)^s eta_i (x) = 1$ при $x in K$. Причём диаметры носителей $eta_i$ сколь угодно малы.#footnote[#h(1mm)То есть зная изначально какой-то $epsilon>0$, можно устроить разбиение, у которого диаметры всех носителей меньше $epsilon$]#footnote[#h(1mm)#text(fill: author)[Кажется, обычно не оценивают единицей сумму $eta_i$ везде, а просто требуют, чтобы они не превосходили единицу]]
 ]
-Согласно лемме Лебега о покрытии, можно считать, что каждый носитель $eta_i$ лежит в пределах какой-то координатной карты $U_i$. Пусть $Omega$ -- $(k-1)$-форма. Тогда $ integral_M Omega := sum_(i=1)^s integral_(U_i) eta_i Omega. $
+Доказательство будет приведено ниже. Согласно лемме Лебега о покрытии, можно считать, что каждый носитель $eta_i$ лежит в пределах какой-то координатной карты $U_i$. Пусть $Omega$ -- $(k-1)$-форма. Тогда $ integral_M Omega := sum_(i=1)^s integral_(U_i) eta_i Omega. $
 
 #fact[
   Определение не зависит от разбиения единицы.
@@ -1156,12 +1158,74 @@ $ d f = sum_(j=1)^n frac(partial f, partial x_j) d x_j. $
   Просуммируем по $i$. Поменяв ролями $eta$ и $theta$ придём к тому, что требуется.
 ]
 // Лекция 13 (27.11.2024)
+Пусть $Omega$ -- компактное гладкое ориентируемое многообразие с краем размерности $k$ в $RR^n$, $Phi$ -- $(k-1)$-форма в $Omega$.
+#theorem("формула Стокса")[
+  $integral_Omega d Phi = integral_(partial Omega) Phi$.
+]
+#proof[
+  Будем считать, что носители всех коэффициентов формы лежат в пределах одной карты, потому что можно взять мелкое разбиение единицы, умножить форму на неё и сложить интегралы. Пусть это будет карта $F: V -> Omega$, где, как обычно, $V$ это либо куб $(-1,1)^k$, либо полукуб $(-1,0] times (-1,1)^k$. Обозначим $V_0 = {0} times (-1,1)^(k-1)$. Выше мы доказали, что
+  $ integral_Omega d Phi = integral_V (d Phi) compose F = integral_V (d Phi compose F) =^? integral_(partial V) Phi compose F. $
+  Заметим, что $Psi = Phi compose F$ -- $(k-1)$-форма на $V$. Представим её как
+  $ Psi = sum_(i=1)^k g_i d x_1 and dots and d x_(i-1) and d x_(i+1) and dots and d x_(k), $
+  $ d Psi = sum_(i=1)^k (-1)^(i-1) frac(partial g_i, partial x_i) d x_1 and dots and d x_k, $
+  Если $V$ "первого рода", то есть случая без края, то параметризуем куб самим собой, и тогда
+  $ integral_V d Psi = sum_(i=1)^k (-1)^(i-1) integral_V frac(partial g_i (x_1,dots,x_k),x_i) d x_1 dots d x_k = 0 $
+  Так как легко применить формулу Ньютона-Лейбница. Если $V$ "второго рода", то есть с краем,
+  $ integral_V d Psi = sum_(i=1)^k (-1)^(i-1) integral_V frac(partial g_i (x_1,dots,x_k),x_i) d x_1 dots d x_k = integral_((-1,1)^k) g_1 (0,x_2,dots,x_k) d x_2 dots d x_k. $
+  $V_0$ -- $(k-1)$--мерное многообразие в $RR^n$. Параметризуем его как $ (u_2,dots,u_k) arrow.long.bar (0,u_2,dots,u_k). $
+  Матрица Якоби такой параметризации будет следующей: $ mat(
+  0, 0, 0, dots, 0;
+  1, 0, 0, dots, 0;
+  0, 1, 0, dots, 0;
+  dots.v, dots.v, dots.v, dots.down, dots.v;
+  0, 0, 0, dots, 1;) $
+  Единственный способ получить не ноль в определителе после выкидывания какой-то строки -- выкинуть первую строку. Отсюда и получается равенство нужных интегралов.
+]
+== Об ориентации
+Пусть точка $x in partial M$ параметризуется двумя картами $ psi_1, psi_2 : V arrow M. $
+Сужения $lr(psi_1|)_(V_0)$ и $lr(psi_2|)_(V_0)$ параметризуют окрестность $x$ на $partial M$. Отображение перехода $g = psi_2^(-1) compose psi_2$ задано в некотором открытом множества $G subset.eq V$, причём $forall y in V_0 med med g(y) in V_0$, если $g(y)$ имеет смысл.
 
-
-
-
-
-
+Пусть $g_1, dots, g_k$ -- координатные функции для $g$.
+$ g(0,u_2,dots,u_k) = (0, dots) quad arrow.double.long quad g_1(0,u_2,dots,u_k) = 0. $
+Запишем Якобиан, в $V$ он будет положительным, так как карты согласованы.
+$ det mat(
+  frac(partial g_1 (u),partial u_1), dots, frac(partial g_1 (u),partial u_k);
+  dots.v, dots.down, dots.v;
+  frac(partial g_k (u),partial u_1), dots, frac(partial g_k (u),partial u_k);) > 0 quad forall u in V. $
+Если $u in V_0$, то в первой строке все элементы, кроме первого, равны нулю, значит на $V_0$ определитель выше равен
+$ frac(partial g_1 (u),partial u_1) det mat(
+  frac(partial g_2 (u),partial u_2), dots, frac(partial g_2 (u),partial u_k);
+  dots.v, dots.down, dots.v;
+  frac(partial g_k (u),partial u_2), dots, frac(partial g_k (u),partial u_k);) $
+$ lim_(u_1 -> 0) frac(g_1(u_1,u_2,dots,u_k)-g_1(0,u_2,dots,u_k),u_1) >= 0 $
+Значит карты второго рода тоже согласованы.
+== Разбиение единицы
+Напомним формулировку леммы о разбиении единицы и докажем её.
+#lemma[
+  Пусть $K subset.eq RR^n$ -- компакт. Тогда существуют неотрицательные $phi_1, dots, phi_N in cal(D)(RR^n)$, что
+  - $sum_(j=1)^N phi_j (x) = 1$ для $x in K$ и лежит в отрезке $[0,1]$ для иных $x$.
+  - $diam supp phi_j < delta$ для заранее заданного $delta > 0$.
+]
+#proof[
+  + Для $RR$. Рассмотрим отрезок $[-1,2]$. Легко построить $phi in C^infinity (RR)$ такую, что $phi(x) > 0$ на $[0,1]$ и $phi(x) = 0$ при $x in.not [-1,2]$. Положим
+    $ Phi = sum_(j in ZZ) phi_j, $
+    где $phi_j (x) = phi(x-j)$. Такая $Phi$ определена, так как в любой точке только конечное число слагаемых, и она тоже бесконечно дифференцируемая. Возьмём теперь
+    $ psi_j^compose = frac(phi_j,Phi). $
+    Тогда $psi_j^compose >= 0$ и $sum_(j in ZZ) psi_j^compose = 1$. При необходимости можно уменьшить диаметры: $psi_j = psi_j^compose (A x)$, если $A$ велико, то диаметр носителя мал, при этом всё ещё $sum_(j in ZZ) phi_j = 1$.
+  + Для $RR^n$. Возьмём $Psi_(s_1,dots,s_n) (x) = psi_(s_1) (x_1) dots psi_(s_n) (x_n)$. Всё ещё сумма по всем мультииндексам равна единице, $diam supp Psi_(s_1,dots,s_n) <= sqrt(n) epsilon < delta$.
+  + Для компакта $K$ возьмём только те $Phi_(s_1,dots,s_n)$, носители которых пересекают $K$. Понятно, что таких будет конечное число и требуемые свойства выполнены.
+]
+== Формула Остроградского-Гаусса
+Пусть $Omega$ -- гладкое ориентируемое многообразие в $RR^n$ размерности $n$ с границей $partial Omega$. Также рассмотрим $Phi$ -- $(n-1)$-форму в окрестности $Omega$.
+$ Phi = sum_(j=1)^n (-1)^(j+1) f_j d x_1 and dots d x_(j-1) and d x_(j+1) and dots and d x_n, $
+$ d Phi = sum_(j=1)^n frac(partial f_j, partial x_j) d x_1 and dots and d x_n, $
+$ f = (f_1,dots,f_n), quad "div"f = sum_(j=1)^n frac(partial f_j,partial x_j). $
+По формуле Стокса имеем $ integral_Omega "div"f = integral_(partial Omega) Phi. $
+Для простоты рассмотрим случай $n=2$. Тогда многообразие размерности 1 -- кривая на плоскости $gamma: [a,b] -> partial Omega$.\ Пусть $Phi = f d y - g d x$ и $d Phi = inline((frac(partial f, partial x) + frac(partial g, partial y)) d x and d y)$. Значит $ integral_Omega (frac(partial f, partial x) + frac(partial g, partial y)) = integral_a^b [f(gamma(t)) gamma_2^' (t) - g(gamma(t)) gamma_1^' (t)] d t. $
+Заметим, что справа стоит $scal((f(gamma(t)),g(gamma(t))),(gamma_2^' (t),-gamma_1^' (t)))$ -- скалярное произведение с нормалью.
+Запишем более общо, если $H(z) = (f(z),g(z))$, то отнормировав нормаль $n(z) = inline(frac(N(z),abs(N(z))))$ получим $ integral_(partial Omega) scal(H(z),n(z)) d lambda_gamma. $
+Обозначив за $lambda$ меру Лебега на $partial Omega$, получаем формулу Остроградского-Гаусса:
+#align(center, box(stroke: (gradient.linear(..color.map.rainbow)), inset: 1em)[$ integral_Omega "div"f = integral_(partial Omega) scal(f(x),n(x)) d lambda(x) $])
 
 
 
