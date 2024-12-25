@@ -35,6 +35,7 @@
 #let author = rgb("#DC143C"); //цвет комментарий Павла Юрича
 #let scal(fst,scn) = $angle.l fst, scn angle.r$ // скалярное произведение
 #let svo = text(12pt)[#underline[_Свойства_]:\ ] //СВОйства
+#let note = [#underline[_Замечание_]:]
 #let diam = "diam"
 #let supp = "supp"
 #let ru_alph(pattern: "а)") = { // Это всё для РУZZКОЙ нумерации
@@ -68,7 +69,6 @@
 //#v(37mm)
 #align(right+bottom, image(ipath+"furry-on-cover.png", width: 30%))
 #pagebreak()
-//#align(center, text(20pt, font: "Comfortaa")[*СОДЕРЖАНИЕ*]) //C059 хорош
 #set page(numbering: "1")
 #counter(page).update(1)
 
@@ -220,7 +220,7 @@ $ Gamma(RR) = {x arrow.r.long.bar e^(2 pi i xi x)}_(xi in RR) $
     1"," quad k = 0\
     0"," quad k eq.not 0
   ) $
-- Теперь пусть $f$ и $g$ --  функции на окружности. Тогда $ (f * g)(xi) = (1/(2pi)) integral_(TT) f(xi eta^(-1)) g(eta) d eta, quad xi in TT. $
+- Теперь пусть $f$ и $g$ --  функции на окружности. Тогда $ (f * g)(xi) = 1/(2pi) integral_(TT) f(xi eta^(-1)) g(eta) d eta, quad xi in TT. $
 
 Понятно, что функции на окружности находятся во взаимно однозначном соответствии с\ $2 pi$-периодическими функциями на $RR$. Давайте поймём как их интегрировать.
 #figure(rect[#image(ipath+"chzh.jpg", width: 25%)], caption: [my honest reaction])
@@ -469,7 +469,7 @@ $ = 1/(2 pi) integral_(-pi)^(pi) (f(x-y)-A) D_N (y) d y = 1/(2 pi) integral_(-pi
 #fact[
   Если $f$ $2pi$-периодична и дважды непрерывно дифференцируема, то $S_N f arrows f$.
 ]<fact1>
-Отложим ненадолго доказательство, и скажем пока почему множество тригонометрических полиномов $cal(P)$ плотно в $C(TT)$ в смысле равномерной сходимости. Мы уже #link(<polnota>)[видели] это, но в доказательстве использовали #link(<stoun>)[теорему Стоуна-Вейерштрасса]. Теперь мы обойдёмся без неё. #footnote[зато будем использовать пока даже недоказанный факт, вкусно]\
+Отложим ненадолго доказательство, и скажем пока почему множество тригонометрических полиномов $cal(P)$ плотно в $C(TT)$ в смысле равномерной сходимости. Мы уже #link(<polnota>)[видели] это, но в доказательстве использовали #link(<stoun>)[теорему Стоуна-Вейерштрасса]. Теперь мы обойдёмся без неё. #footnote[#h(1mm) зато будем использовать пока даже недоказанный факт, вкусно]\
 Действительно, пусть $f in C(TT)$, #h(1mm) $epsilon > 0$. Найдём $g in C^2(TT)$, такую что $sup_(xi in TT) abs(f(xi)-g(xi)) < epsilon$.\
 Теперь применив #link(<fact1>)[факт] мы получаем $S_N g arrows g$ и тем самым всё доказано.
 #figure(rect[#image(ipath+"when.jpg",width: 25%)], caption: [honorable mention])
@@ -565,7 +565,7 @@ $ integral_0^pi frac(abs(sin(N + 1/2)t), abs(sin t/2)) d t >= C integral_0^pi fr
 $ >= C sum_(k=1)^N integral_(k pi)^((k+1)pi) frac(abs(sin s),s) d s >= C sum_(k=1)^N 1/((k+1)pi) integral_(k pi)^((k+1)pi) abs(sin t) d t >= C' sum_(k=1)^N 1/(k+1) >= C'' log N. $
 То есть мы разбили отрезок на подотрезки от $k pi$ до $(k+1)pi$ и заменили $s$ на наибольшее значение. Оценка сверху оставляется читателю в качесте упражнения.//#text(fill: author)[Кажется, там лучше суммирование до $N-1$ вести, чтобы всё корректнее было.]
 
-#underline[_Замечание_]: в условиях пункта 2, если $Phi_sigma >= 0 #h(3mm) forall sigma$, то тогда то предположение, которое мы сделали вместо (б), влечёт (а), потому что $ integral_TT abs(Phi_sigma) d m = integral_TT Phi_sigma d m = 1. $
+#note в условиях пункта 2, если $Phi_sigma >= 0 #h(3mm) forall sigma$, то тогда то предположение, которое мы сделали вместо (б), влечёт (а), потому что $ integral_TT abs(Phi_sigma) d m = integral_TT Phi_sigma d m = 1. $
 В связи с этим всем, надо вспомнить про суммирование по Чезаро.
 $ sigma_N f = 1/(N+1) sum_(k=0)^N S_k f = 1/(N+1) sum_(k=0)^N f*D_k = f * (1/(N+1) sum_(k=0)^n D_k). $
 #definition[
@@ -658,7 +658,7 @@ $ hat(Phi)(zeta) = (hat(phi)(zeta))^2 >= 0 $
 Как мы не раз замечали, верна она далеко не всегда. Напомним, речь идёт о равенстве $(f^and)^(or) = f$ для $f in L^1(RR^n)$. Ещё раз вспомним формулы для прямого и обратного:
 $ hat(f) (xi) = integral_(RR^n) f(x) e^(-2pi scal(x,xi)) d x, quad caron(f) (xi) = hat(f) (-xi). $
 Оказывается, эти операции более или менее взаимно обратны для достаточно хороших функций.\
-Работать мы будем на $RR$, то есть $n=1$, и пусть $f in cal(D)(RR)$, то есть бесконечно дифференцируема с компатным носителем.#footnote(text(fill: author)[#h(2mm) То есть мы будем смотреть на крышечки от шапочек.]) Покажем, что в таком случае формула обращения верна буквально.
+Работать мы будем на $RR$, то есть $n=1$, и пусть $f in cal(D)(RR)$, то есть бесконечно дифференцируема с компатным носителем.#footnote(text(fill: author)[#h(1mm) то есть мы будем смотреть на крышечки от шапочек]) Покажем, что в таком случае формула обращения верна буквально.
 Пусть $R$ -- настолько большое число, что носитель функции $phi(x) = f(R x)$ лежит в отрезке $[-pi,pi]$.
 $ f(R x) = sum_(n in ZZ) c_n e^(i n x), quad x in [-pi,pi], $
 $ c_n = 1/(2pi) integral_(-pi)^pi f(R x) e^(-i n t) d x. $
@@ -857,7 +857,7 @@ $ frac(partial, partial t) (t^2+abs(x)^2)^(-frac(n-1,2)) = C frac(t,(t^2 + abs(x
 Обозначим $p(x) = frac(C', (1+abs(x)^2)^((n+1)/2))$. Тогда сверху мы получили $1/(t^n) p(x/t) = p_t (x)$. Функция $p$ неотрицательна, суммируема на $RR^n$, и если выбрать $C'$ так, чтобы интеграл был равен единице, то получим, что ${p_t}_(t>0)$ -- аппроксимативная единица. На неё можно смотреть как на функцию от двух переменных, и тогда она будет гармонична в верхнем полупространстве.\
 $ h in L^1(RR^n), quad H(x,t) = h * p_t (x) = integral_(RR^n) h(x-y) p_t (y) d y = integral_(RR^n) f(y) p_t (x-y) d y. $
 $H$ гармонична в $RR^(n+1)_+$ так как можно дифференцировать под знаком интеграла, потому что дифференцируя два раза степень при $abs(x)^(-1)$ останется больше размерности пространства, то есть
-#underline[_Замечание_]: $D thin p_t (x)$ -- суммируемая функция для любого дифференциального опертора.
+#note $D thin p_t (x)$ -- суммируемая функция для любого дифференциального опертора.
 $ phi = hat(p), quad hat(p_t) (x) = phi(t x). $
 Ниже мы покажем, что $phi$ радиальна, то есть $phi = psi(abs(x))$, где $psi$ -- некоторая функция на $RR_+$. Тогда $ hat(p_t) (x) = psi(t abs(x)). $
 Обозначим $P(t,y) = p_t (y)$.
@@ -868,7 +868,7 @@ $ abs(x)^2 psi'' (t abs(x)) -4pi^2 abs(x)^2 psi(t abs(x)) = 0. $
 $ hat(p)(x) = psi(abs(x)), quad hat(p) (0) = psi(0). $
 $C_1$ должна быть равна нулю, чтобы было стремление к нулю преобразования Фурье, а что $C_2 = 1$ следует из равенства выше.
 $ integral_(RR^n) f(x-y) p_t (y) d y = integral_(RR^n) hat(f)(xi) e^(2pi i scal(x,xi)) e^(-2pi t abs(xi)) d xi. $
-Левая часть сходится к $f$ в $L^1$ из-за аппроксимативной единицы, и в $L^2$ происходит то же самое. Если правую часть рассматривать как функцию $u$ от $(t,x) in RR_+ times RR^n$, то $u$ гармоническая и если $f in L^p (RR^n)$, то $L^p-lim_(t -> 0) u(dot,t) = f(dot)$. Если $f in L^infinity (RR^n)$ и равномерное непрерывна#footnote([если не требовать равеномерную непрерывность, то сходимость будет поточеченой]), то $u(dot,t) arrows_(t -> 0) f(dot)$.\
+Левая часть сходится к $f$ в $L^1$ из-за аппроксимативной единицы, и в $L^2$ происходит то же самое. Если правую часть рассматривать как функцию $u$ от $(t,x) in RR_+ times RR^n$, то $u$ гармоническая и если $f in L^p (RR^n)$, то $L^p-lim_(t -> 0) u(dot,t) = f(dot)$. Если $f in L^infinity (RR^n)$ и равномерное непрерывна#footnote([#h(1mm) если не требовать равеномерную непрерывность, то сходимость будет поточеченой]), то $u(dot,t) arrows_(t -> 0) f(dot)$.\
 Получили ещё одну формулу -- способ получать нечто вроде формулы обращения с помощью свёртки с ядром Пуассона. Восполним то, чем воспользовались выше.
 == Преобразование Фурье при ортогональных преобразованиях
 Пусть $V: RR^n arrow RR^n$ -- ортогональное преобразование, $f in L^1(RR^n)$.
@@ -918,7 +918,7 @@ $f in L^1 (RR^n)$, $x in RR^n$. Посмотрим на $ (M f)(x) := sup_(r>0) 
   По лемме Винера можем выбрать среди них дизъюнктные $U_1, dots, U_M$, такие что $3U_1 union dots union 3U_M supset.eq K$. Теперь можно написать оценку $ abs(K) <= sum_(j = 1)^M abs(3U_j) = 3^n sum_(j=1)^M abs(U_j) <= frac(3^n,t) sum_(j=1)^M integral_(U_j) abs(f(t)) d t <= frac(3^n,t) norm(f)_(L^1). $
   По регулярности меры можно приближать $A$ компактами, чтобы мера тоже приближалась.
 ]
-#underline[_Замечание_]: Пусть $mu$ -- конечная борелевская мера на $RR^n$. $ M mu(x) = sup_(r>0) 1/abs(B_r (x)) abs(mu)(B_r (x)). $
+#note Пусть $mu$ -- конечная борелевская мера на $RR^n$. $ M mu(x) = sup_(r>0) 1/abs(B_r (x)) abs(mu)(B_r (x)). $
 Тогда $abs({x : M mu (x) > t}) <= inline(frac(3^n,t)) abs(mu) (RR^n)$. Работает абсолютно аналогичное доказательство.
 
 == Сильная теорема о дифференцировании
@@ -932,7 +932,7 @@ $f in L^1 (RR^n)$, $x in RR^n$. Посмотрим на $ (M f)(x) := sup_(r>0) 
 ]
 Её можно усилить теоремой Лебега, перенеся $h$ в левую часть и поставив модуль под интеграл.
 
-#underline[_Замечание_]: Пусть $f = chi_E$, где $E$ -- измеримое множество положительной меры. Возьмём в теореме о дифференцировании $C_r = B_r (0)$, тогда для почти всех $x$ $ lim_(r->0) 1/abs(B_r (x)) abs(B_r (x) sect E) = cases(1","quad x in E, 0","quad x in.not E) $
+#note Пусть $f = chi_E$, где $E$ -- измеримое множество положительной меры. Возьмём в теореме о дифференцировании $C_r = B_r (0)$, тогда для почти всех $x$ $ lim_(r->0) 1/abs(B_r (x)) abs(B_r (x) sect E) = cases(1","quad x in E, 0","quad x in.not E) $
 // Лекция 10 (06.11.2024)
 #theorem("Лебега")[
   Если $f in L^1(RR^n)$, то для почти всех $x$ $ lim_(t -> 0) 1/(abs(C_t)) integral_(C_t + x) abs(f(u) - f(x)) d u = 0. $
@@ -1145,7 +1145,7 @@ $ d f = sum_(j=1)^n frac(partial f, partial x_j) d x_j. $
 
 Пусть $U subset.eq RR^k$ -- открытое множество, $M$ -- компактное ориентируемое многообразие размерности $k$ с краем. Пусть ${X_alpha}_(alpha in Lambda)$ -- ориентированный атлас для $M$. Каждое $X_alpha$ задано либо на кубе $Delta = (-1,1)^k$, либо на $tilde(Delta) = (-1,0] times (-1,1)^(k-1)$. Тем самым край будет объединением образов сужений отображений второго случая на $Delta_0 = {0} times (-1,1)^(k-1)$.
 #lemma("о разбиении единицы")[
-  Пусть $K subset.eq RR^n$ компактно. Тогда существуют $eta_1, dots, eta_s in cal(D)(RR^n)$ такие что $eta_i >= 0$, $sum_(i=1)^s eta_i <= 1$ и $sum_(i=1)^s eta_i (x) = 1$ при $x in K$. Причём диаметры носителей $eta_i$ сколь угодно малы.#footnote[#h(1mm)То есть зная изначально какой-то $epsilon>0$, можно устроить разбиение, у которого диаметры всех носителей меньше $epsilon$]#footnote[#h(1mm)#text(fill: author)[Кажется, обычно не оценивают единицей сумму $eta_i$ везде, а просто требуют, чтобы они не превосходили единицу]]
+  Пусть $K subset.eq RR^n$ компактно. Тогда существуют $eta_1, dots, eta_s in cal(D)(RR^n)$ такие что $eta_i >= 0$, $sum_(i=1)^s eta_i <= 1$ и $sum_(i=1)^s eta_i (x) = 1$ при $x in K$. Причём диаметры носителей $eta_i$ сколь угодно малы.#footnote[#h(1mm) то есть зная изначально какой-то $epsilon>0$, можно устроить разбиение, у которого диаметры всех носителей меньше $epsilon$]#footnote[#h(1mm)#text(fill: author)[кажется, обычно не оценивают единицей сумму $eta_i$ везде, а просто требуют, чтобы они не превосходили единицу]]
 ]
 Доказательство будет приведено ниже. Согласно лемме Лебега о покрытии, можно считать, что каждый носитель $eta_i$ лежит в пределах какой-то координатной карты $U_i$. Пусть $Omega$ -- $(k-1)$-форма. Тогда $ integral_M Omega := sum_(i=1)^s integral_(U_i) eta_i Omega. $
 
@@ -1225,8 +1225,72 @@ $ f = (f_1,dots,f_n), quad "div"f = sum_(j=1)^n frac(partial f_j,partial x_j). $
 Заметим, что справа стоит $scal((f(gamma(t)),g(gamma(t))),(gamma_2^' (t),-gamma_1^' (t)))$ -- скалярное произведение с нормалью.
 Запишем более общо, если $H(z) = (f(z),g(z))$, то отнормировав нормаль $n(z) = inline(frac(N(z),abs(N(z))))$ получим $ integral_(partial Omega) scal(H(z),n(z)) d lambda_gamma. $
 Обозначив за $lambda$ меру Лебега на $partial Omega$, получаем формулу Остроградского-Гаусса:
-#align(center, box(stroke: (gradient.linear(..color.map.rainbow)), inset: 1em)[$ integral_Omega "div"f = integral_(partial Omega) scal(f(x),n(x)) d lambda(x) $])
+#align(center, box(stroke: (gradient.linear(..color.map.rainbow)), inset: 1em)[$ integral_Omega "div"f = integral_(partial Omega) scal(f,n) d lambda $])
+// Лекция 14 (04.12.2024)
+Значем, что $integral_Omega "div"f dot.c d x_1 and ... and d x_n = integral_(partial Omega) Phi$. Вновь считаем, что носитель $Phi$ лежит в одной карте второго рода:
+$ X : V = (-1, 0] times (-1, 1)^(n-1) arrow.long Omega. $
+Как и прежде, $V_0 = {0} times (-1, 1)^(n-1)$.
+$ integral_Omega "div"f = integral_(partial Omega) Phi = integral_(V_0) sum_(j=1)^n f_j (X(u)) (-1)^(j-1) D_j (u) d u eq.circle $
+где $D_j (u)$ -- определитель матрицы Якоби $D (u)$, из которой выкинули $j$-ую строку:
+$ D(u) = mat((partial X_1)/(partial u_2), dots, (partial X_1)/(partial u_n);
+            dots.v, dots.down, dots.v;
+            (partial X_n)/(partial u_2), dots, (partial X_n)/(partial u_n);) $
+Обозначим за $N(u) in RR^n$ вектор $N(u) = {(-1)^(j-1) D_j (u)}_(j=1)^n$, то есть $ N(u) = mat(D_1 (u); -D_2(u); dots.v; (-1)^n D_n (u)). $
+Заметим, что $N(u)$ ортогонален любому столбцу $D(u)$, так как что его скалярное произведение со столбцом, соответствующем $u_k$, равно определителю матрицы, ведь получится просто разложение матрицы по столбцу.
+$ mat((partial X_1)/(partial u_k), (partial X_1)/(partial u_2), dots, (partial X_1)/(partial u_n);
+    dots.v, dots.v, dots.down, dots.v;
+    (partial X_n)/(partial u_k), (partial X_n)/(partial u_2), dots, (partial X_n)/(partial u_n);) $
+Такой определитель равен нулю, потому что в матрице есть два одинаковых столбца. То есть вектор $N(u)$ ортогонален всем столбцам матрицы $D(u)$, значит является нормалью к касательному подпространству. Тем самым, имеем:
+$ eq.circle integral_(V_0) angle.l f(X(u)), N(u) angle.r d u = integral_(V_0) angle.l f(X(u)), n(u) angle.r dot |N(u)| d u = integral_(partial Omega) angle.l f(xi), n(xi) angle.r d lambda_(partial Omega) xi. $
+Последнее равенство верно, ведь если так параметризуем и выскакивает длина вектора, равная определителю Грамма матрицы $X$, получается интеграл по мере Лебега на границе. Как и прежде, $n(u) := N(u) / (|N(u)|)$. Если не предполагать что коэффициенты $f$ лежат в пределах одной карты, надо использовать теорему о разбиении единицы и всё будет хорошо.
 
+Теперь покажем, что нормаль $n$ торчит "наружу" от многообразия $Omega$.\
+Пусть $(0, u_0) in V_0$, будем рассматривать нормаль из этой точки. Фиксируем $epsilon > 0$, будем смотреть на точки из некоторого конуса#footnote[#h(1mm) Поясним зачем это нужно. Иначе $scal((t,u-u_0),n)$ необязательно отрицательный. Рассмотрим параболу $y=x^2$, в точке $(0,0)$ есть две единичные нормали: $(0,1)$ и $(0,-1)$, причём вблизи этой точки $(t,u-u_0)$ может иметь вторую координату какого угодно знака, так что надо ограничиться, например, конусом $t < -abs(x)$.], то есть такие $(t,u) in V$, что $abs(t) > epsilon abs(u - u_0)$. Хотим доказать, что $ S := scal(X(t, u) - X(0, u_0),N(0, u_0)) < 0. $
+верно при достоточно малых $t$.
+#proof[
+  Пусть $D_((0, u_0))$ -- дифференциал отображения $X$ в точке $(0, u_0)$. Тогда $ S = scal(D_((0, u_0)) (t, u - u_0) + phi((t, u - u_0)), N(0, u_0)), $
+  где $phi((t,u)) = o(abs((t,u))) = o(t)$ (из определения дифференциала и ограничения $abs(u - u_0) < inline(t/epsilon)$).
+  $ S = scal(D_((0, u_0)) (t, u - u_0), N(0, u_0)) + o(t) = scal((t, u - u_0),D_((0, u_0))^T  N(0, u_0)) + o(t). $
+  $D_((0, u_0))^t  N(0, u_0)$ -- это $n$-мерный вектор, $k$-ая координата в нём -- скалярное произведение $k$-ого столбца матрицы $D_((0, u_0))$ на столбец $N(0, u_0)$. Ранее мы поняли, что произведение с $k$-ым столбцом, где $k >= 2$, даст ноль. А произведение с первым столбцом даст определитель матрицы $D$, который больше 0 (пусть это $a > 0$). Итого имеем:
+  $ S = scal((t, u - u_0),(a, 0, dots, 0)) + o(t) = t dot a + o(t) < 0. $
+]
+
+== Формула Коши-Грина
+#note Рассмотрим $RR^d$. Пусть в дивергенции формы $Phi$ только одна компонента ($(partial g)/(partial x_j)$) ненулевая. Пусть $n = (n_1, dots, n_d)$ -- нормаль, которая определяется на $partial Omega$. Тогда формула Остроградского-Гаусса упрощается до вида
+$ #h(7mm) integral_Omega (partial g) / (partial x_j) d lambda_d = integral_(partial Omega) g n_j d lambda_(partial Omega). #h(5mm) (star) $
+
+
+#theorem("Формула Коши-Грина")[\
+  Пусть $Omega subset RR^2$ замкнутое 2-мерное ориентированное многообразие. Пусть функция $h in C^1 (RR^2)$ задана в окрестности $Omega$ и $gamma$ -- путь, обходящий $partial Omega$. Тогда
+$
+  forall z in Omega #h(5mm) h(z) = 1/(2 pi i) integral_(gamma) h(zeta)/(zeta - z) d zeta - 1/pi integral.double_Omega (overline(partial) h (zeta))/(zeta - z) d lambda_2(zeta)
+$
+]
+#note Если $h$ -- голоморфна, то $overline(partial)/(partial zeta) h = 0$ и это формула Коши.
+
+#note Если $h$ имеет компактный носитель, то если выбрать $Omega$ как большой шар, содержащий его, первый интеграл будет равен нулю и получится формула Помпею.
+
+#proof[
+  Напомним, что $overline(partial) f := 1/2 ((partial)/(partial x) f + i dot (partial)/(partial y) f)$.\
+  По формуле $(star)$, для гладкой $f$ в окрестности $Omega$,
+  $ integral_Omega overline(partial) f d x d y = 1/2 integral_(partial Omega) f dot (n_x + i n_y) d lambda_(partial Omega) = 1/2 integral_(partial Omega) f dot n space d lambda_(partial Omega) eq.circle $
+  где $n = n_x + i n_y$ -- внешняя нормаль. Если нормаль домножить на $i$, получим вектор, торчащий в направлении положительного обхода $partial Omega$. Тогда интеграл равен
+  $ eq.circle 1/(2 i) integral_(partial Omega) f dot  i n space d lambda_(partial Omega) = 1/(2 i) integral_(gamma) f d z, $
+  где $gamma$ -- путь, обходящий $partial Omega$. Домножение единичного касательного вектора $i n$ на дифференциал $d lambda_(partial Omega)$ (который в точке $t$ равен $sqrt(gamma'_1 (t)^2 + gamma'_2 (t)^2) space d t$) как раз даст $(gamma'_1(t) + i gamma'_2 (t)) d t$, и значит интеграл равен $integral_gamma f d z$.
+
+  Пусть $f(zeta) = (h(zeta))/(zeta - z)$. Оно определено на всяком многообразии $Omega_r := Omega without U_r$, где $U_r$ -- круг маленького радиуса $r$ вокруг точки $z$. Поскольку $zeta - z$ -- аналитическая функция, $overline(partial) (zeta - z) = 0$. Тогда $(overline(partial) f(zeta))/(partial zeta) = (overline(partial) h(zeta))/(zeta - z)$. Получили, что
+  $ integral_(Omega_r) (overline(partial) h(zeta))/(zeta - z) d lambda_2 (zeta) = 1/2 integral_(partial Omega_r) (h(zeta) n(zeta))/(zeta - z) d zeta = 1/2 integral_(partial Omega) (h(zeta) n(zeta))/(zeta - z) d zeta + 1/2 integral_(partial overline(U_r)) (h(zeta) n(zeta))/(zeta - z) d zeta, #h(7mm) (\u{2661}) $
+  где $partial overline(U_r)$ -- та часть края многообразия, нормали которой торчат в круг $U_r$. Параметризуем этот край (преобразуем последний интеграл): $|zeta - z| = r, zeta = s + r e^(i theta), theta in [0, 2 pi]$. Тогда 
+  $ 1/2 integral_(partial overline(U_r)) (h(zeta) n(zeta))/(zeta - z) d zeta = r/2 integral_0^(2 pi) (-e^(i theta))/(z + r e^(i theta) - z) dot h(z + r e^(i theta)) d theta ->_(r->0) -pi h(z) $
+  Теперь если в равенстве $(\u{2661})$ правый интеграл правой части перекинуть влево, а всё остальное вправо, будет равенство
+  $ pi h(z) = 1/2 integral_(partial Omega) (h(zeta) n(zeta))/(zeta - z) d lambda_2 (zeta) - integral_Omega (overline(partial) h(zeta))/(zeta - z) d lambda_2 (zeta) $
+  Получили почти то, что нужно, осталось только в первом слагаемом справа домножить норму на $i$ (и снаружи поделить на $i$) и сделать такой же переход к интегралу по аналитической границе. И на $pi$ еще поделить. Итого,
+  $ h(z) = 1/(2 pi i) integral_(gamma) (h(zeta))/(zeta - z) d zeta - 1/pi integral_Omega (overline(partial) h(zeta))/(zeta - z) d lambda_2 (zeta). $
+]
+Возьмём в $RR^3$ произвольную 1-форму $Phi = f_1 d x_1 + f_2 d x_2 + f_3 d x_3$. Её можно интегрировать по контурам (кривым). Пусть $M$ -- компактное гладкое двумерное ориентированное многообразие в $RR^3$. По формуле Стокса $ integral_M d Phi = integral_(partial M) Phi. $
+$ d Phi = ((partial f_2)/(partial d x_1) - (partial f_1)/(partial x_2)) d x_1 and d x_2 + ((partial f_3)/(partial d x_2) - (partial f_2)/(partial x_3)) d x_2 and d x_3 - ((partial f_1)/(partial d x_3) - (partial f_3)/(partial x_1)) d x_1 and d x_3. $
+То есть, чтобы вычислить интеграл, надо вектор $ "rot"f = ((partial f_3)/(partial d x_2) - (partial f_2)/(partial x_3),(partial f_1)/(partial d x_3) - (partial f_3)/(partial x_1),(partial f_2)/(partial d x_1) - (partial f_1)/(partial x_2)), $ называемый _ротором_,#footnote[#h(1mm) в англоязычной литературе пишут _curl_, то есть вихрь] умножить скалярно на нормаль к плёнке $M$ (направленную по правилу Буравчика#footnote[#h(1mm) польский математик]), и проинтегрировать по мере Лебега на плёнке:
+$ integral_M scal("rot"f,n) d lambda_M = integral_(partial M) Phi. $
 
 
 
