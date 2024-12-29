@@ -15,7 +15,7 @@
   v(12pt, weak: true)
   strong(it)
 }
-#show outline: set text(size: 10.5pt, fill: black)
+#show outline: set text(size: 9.6pt, fill: black)
 
 #set page(width: 210mm, height: 297mm, margin: 1.5cm, numbering: none, number-align: right, header: [#counter(footnote).update(0)])
 #set heading(numbering: "1.")
@@ -30,14 +30,14 @@
 #let fact = thmplain("факт", "Факт", stroke: 0.5pt, inset: 1em, radius: 0em).with(numbering: none)
 #let proof = thmproof("доказательство", "Доказательство")
 
-#let iff = $arrow.l.r.double.long$
+#let iff = $arrow.l.r.double.long$ // тогда и только тогда когда
 #let ipath = "/Images/" //путь где картинки
 #let author = rgb("#DC143C"); //цвет комментарий Павла Юрича
 #let scal(fst,scn) = $angle.l fst, scn angle.r$ // скалярное произведение
-#let svo = text(12pt)[#underline[_Свойства_]:\ ] //СВОйства
-#let note = [#underline[_Замечание_]:]
-#let diam = "diam"
-#let supp = "supp"
+#let svo = text(12pt)[#underline[_Свойства_]#h(0.5mm):\ ] //СВОйства
+#let note = text(12pt)[#underline[_Замечание_]#h(0.5mm):]
+#let diam = "diam" // диаметр
+#let supp = "supp" // носитель
 #let ru_alph(pattern: "а)") = { // Это всё для РУZZКОЙ нумерации
   let alphabet = "абвгдежзиклмнопрстуфхцчшщэюя".split("")
   let f(i) = {
@@ -71,7 +71,6 @@
 #pagebreak()
 #set page(numbering: "1")
 #counter(page).update(1)
-
 
 #outline(title: "Содержание", indent: 1em,)
 #pagebreak()
@@ -350,7 +349,7 @@ $ scal(f,f) = norm(f)_(L^2 (mu)), quad scal(f,g) = overline(scal(g,f)). $
   Коэффициентами Фурье функции $f in L^2(mu)$ по ортонормированной системе ${f_j}_(j in cal(I))$ называются $c_j = scal(f,f_j)$.\
   Рядом Фурье функции $f$ по данной ортонормированной системе называется $sum_(j in cal(I)) c_j f_j.$
 ]
-Ближайшей нашей целью является увидеть, что ряд Фурье всегда сходится по норме пространства $L^2(mu)$.
+Ближайшей нашей целью является увидеть, что ряд Фурье всегда сходится по норме $L^2(mu)$.
 #theorem("Пифагор")[
   Пусть $f,g in L^2(mu)$ ортогональны, тогда $ norm(f+g)_(L^2)^2 = norm(f)_(L^2)^2 + norm(g)_(L^2)^2. $
 ]
@@ -504,8 +503,8 @@ $ = 1/(2 pi) integral_(-pi)^(pi) (f(x-y)-A) D_N (y) d y = 1/(2 pi) integral_(-pi
 
 == Мало-мальски приличные функции
 Напишем ещё вариант формулы для $S_N$:
-$ S_N f(x) - A = 1/(2pi) integral_(-pi)^(pi) (f(x-y)-A) dot underbrace(frac(sin (N+1/2) y, sin y/2), D_N) d y = 1/(2pi) integral_0^pi (f(x+y)-f(x-y)- 2 A) D_N(y) = $
-$ = 1/pi integral_0^pi (frac(f(x+y)-f(x-y), 2) - A) D_N(y) d y = 1/pi integral_0^pi underbrace(1/(sin y/2) (frac(f(x+y)-f(x-y),2)-A), phi(y)) sin (N+1/2) y d y. $
+$ S_N f(x) - A = 1/(2pi) integral_(-pi)^(pi) (f(x-y)-A) dot underbrace(frac(sin (N+1/2) y, sin y/2), D_N (y)) d y = 1/(2pi) integral_0^pi (f(x+y)-f(x-y)- 2 A) D_N (y) = $
+$ = 1/pi integral_0^pi (frac(f(x+y)-f(x-y), 2) - A) D_N (y) d y = 1/pi integral_0^pi underbrace(1/(sin y/2) (frac(f(x+y)-f(x-y),2)-A), phi(y)) sin (N+1/2) y d y. $
 И вновь мы имеем, что если функция $phi(y)$ суммируема, то по #link(<lrl>)[лемме Римана-Лебега] получаем $ S_N f(x) arrow.long A. $
 Предположим, что $f$ имеет разрыв первого рода в точке $x$, то есть $ exists lim_(y arrow 0+) f(x+y) = f_(+) (x), quad exists lim_(y arrow 0+) f(x-y) = f_(-) (x). $
 Предположим, например, что у $f$ в точке разрыва существуют производные справа и слева:
@@ -563,7 +562,7 @@ $ abs(integral_TT (f(eta)-p(eta) Phi_sigma (z overline(eta))) d m(eta)) <= integ
 $1/(2pi) integral_(-pi)^(pi) abs(D_N (t)) d t tilde log N$, поэтому нормы $D_N$ в $L_1$ не заведомо не ограничены. А остальные условия выполнены. Давайте покажем эту эквивалентность хотя бы с одной стороны.
 $ integral_0^pi frac(abs(sin(N + 1/2)t), abs(sin t/2)) d t >= C integral_0^pi frac(abs(sin(N + 1/2)t),t) d t = C integral_0^(pi(N+1/2)) frac(abs(sin s),s) d s >= $
 $ >= C sum_(k=1)^N integral_(k pi)^((k+1)pi) frac(abs(sin s),s) d s >= C sum_(k=1)^N 1/((k+1)pi) integral_(k pi)^((k+1)pi) abs(sin t) d t >= C' sum_(k=1)^N 1/(k+1) >= C'' log N. $
-То есть мы разбили отрезок на подотрезки от $k pi$ до $(k+1)pi$ и заменили $s$ на наибольшее значение. Оценка сверху оставляется читателю в качесте упражнения.//#text(fill: author)[Кажется, там лучше суммирование до $N-1$ вести, чтобы всё корректнее было.]
+То есть мы разбили отрезок на подотрезки от $k pi$ до $(k+1)pi$ и заменили $s$ на наибольшее значение. Оценка сверху оставляется читателю в качестве упражнения.//#text(fill: author)[Кажется, там лучше суммирование до $N-1$ вести, чтобы всё корректнее было.]
 
 #note в условиях пункта 2, если $Phi_sigma >= 0 #h(3mm) forall sigma$, то тогда то предположение, которое мы сделали вместо (б), влечёт (а), потому что $ integral_TT abs(Phi_sigma) d m = integral_TT Phi_sigma d m = 1. $
 В связи с этим всем, надо вспомнить про суммирование по Чезаро.
@@ -635,7 +634,7 @@ $ hat(Phi)(zeta) = (hat(phi)(zeta))^2 >= 0 $
 + $abs(hat(f)(xi)) <= norm(f)_(L^1)$ -- очевидно.
 + $hat(f)$ -- непрерывная функция на $RR^n$. Следует из теоремы Лебега о мажорируемой сходимости.
 + $lim_(xi -> infinity) abs(hat(f)(xi)) = 0$. Следует из #link(<lrl>)[леммы Римана-Лебега].
-+ Определим сдвиг функции. Для $t in RR^n$ положим $f^t (x) = f(x-t)$, тогда $ hat(f^t)(xi) = integral_(RR^n) f(x-t) e^(-2pi i scal(x,xi)) d x = integral_(RR^n) f(y) e^(-2pi i scal(y,xi)) e^(-2pi i scal(t,xi)) d y = hat(f^t)(xi) e^(-2pi i scal(x,xi)). $
++ Определим сдвиг функции. Для $t in RR^n$ положим $f^t (x) = f(x-t)$, тогда $ hat(f^t)(xi) = integral_(RR^n) f(x-t) e^(-2pi i scal(x,xi)) d x = integral_(RR^n) f(y) e^(-2pi i scal(y,xi)) e^(-2pi i scal(t,xi)) d y = hat(f^t)(xi) e^(-2pi i scal(t,xi)). $
 + Если взять $g(x) = f(x) e^(2pi i scal(x,u))$, то $ hat(g)(xi) = integral_(RR^n) f(x) e^(2pi i scal(x,u)) e^(-2pi i scal(x,xi)) d x = hat(f)(xi - u). $
 + Пусть $f in C^1 (RR^n)$ и все $inline(frac(partial, partial x_j))f$ суммируемы. Тогда $ hat(frac(partial, partial x_j)f)(xi) = integral_RR frac(partial, partial x_j)f(x) e^(-2 pi i scal(x,xi)) d x $
   Чтобы было удобно интегрировать по частям, предположим также что $f$ и все $inline(frac(partial, partial x_j))f$ стремятся к нулю на бесконечности. Теперь, если для определённости взять $j = 1$, получится
@@ -648,7 +647,7 @@ $ hat(Phi)(zeta) = (hat(phi)(zeta))^2 >= 0 $
   $ forall k in NN quad abs(hat(f)(xi)) (1 + abs(xi)^k) arrow.long_(abs(xi) -> infinity) 0. $
   // Лекция 6 (09.10.2024)
   Объясняется это так: если $f$ суммируема $k$ раз и все её производные до порядка $k$ суммируемы, то для $inline(sum_(i=1)^n alpha_n <= k)$ выполнено $ (partial_1^(alpha_1) dots thin partial_n^(alpha_n) f)^(and) = (2pi i xi_1)^(alpha_1) dots thin (2pi i xi_n)^(alpha_1) hat(f) (xi). $
-  #text(fill: author)[Тут Кисляков написал перед множителями минусы, но видимо это проблема обозначений и нормировок, вроде такого быть не должно.\ ]
+  //#text(fill: author)[Тут Кисляков написал перед множителями минусы, но видимо это проблема обозначений и нормировок, вроде такого быть не должно.\ ]
   Мы знаем, что у суммируемой функции преобразование Фурье ограничено, значит $exists C$ такая, что $ abs(hat(f) (xi)) <= C quad "и" quad (2pi abs(xi))^(alpha_1) dots (2pi abs(xi_n))^(alpha_n) abs(hat(f) (xi)) <= C $
   для всех мультииндексов $alpha = (alpha_1,dots,alpha_n)$. Просуммировав по всем мультииндексам, не превосходящим $k$, получим
   $ abs(hat(f) (xi)) underbrace(sum_(abs(alpha) <= k) (1 + abs(xi_1)^(alpha_1) dot dots abs(xi_n)^(alpha_n)), >= A (1+abs(xi))^k) <= C', $
@@ -673,7 +672,7 @@ $ 1/(2pi R) sum_(abs(n/(2pi R))<=K) G(n/(2pi R)) arrow.long_(R -> infinity) inte
 == Снова про $RR^n$
 Вернёмся в $RR^n$ и вновь напишем формулу для преобразования Фурье: $ hat(f) (xi) = integral_(RR^n) f(x) e^(-2pi i scal(x,xi)) d x. $
 Хочется узнать, сколько раз можно дифференцировать эту формулу. Надо дифференцировать под знаком интеграла и смотреть суммируемая ли функция получилась. Пусть $(1+abs(xi)) f(x) in L^1 (RR^n)$, тогда $inline(frac(partial, partial x_j) hat(f))$ существует для любого $j = 1, dots, n$ так как $ (frac(partial, partial x_j) hat(f)) (xi) = integral_(RR^n) 2 pi i x_j f(x) e^(-2 pi i scal(x,xi)) d x $ и подынтегральная функция суммируема по теореме Лебега. Отсюда следует, что $ (2 pi i x_j f(x))^and = frac(partial, partial x_j) hat(f). $
-Проблема класса $cal(D)(RR^n)$ в том, что преобразование Фурье функции оттуда не может иметь компактный носитель, потому что получается целая функция с компактным носителем, а по теореме единственности это ноль. Лечится это классом Шварца $S(RR^n)$ -- бесконечно гладкие функции, у которых любая производная убывает на бесконечности быстрее любой степени. Тем самым, мы априори потребовали, чтобы $ abs(D^alpha f(x)) <= frac(C_(alpha,f,A),(1+abs(x)^A)), $
+Проблема класса $cal(D)(RR^n)$ в том, что преобразование Фурье функции оттуда не может иметь компактный носитель, потому что получается целая функция с компактным носителем, а по теореме единственности это ноль. Лечится это классом Шварца $S(RR^n)$ -- бесконечно гладкие функции, у которых любая производная убывает на бесконечности быстрее любой степени. Тем самым, мы априори потребовали, чтобы $ abs(D^alpha f(x)) <= frac(C_(alpha,f,A),(1+abs(x))^A), $
 и преобразование Фурье можно дифференцировать сколько угодно раз. Более того, из сказанного выше следует, что преобразование Фурье переводит класс Шварца на себя.
 $ cal(F) (S(RR^n)) subset.eq S(RR^n) $
 позже мы поймём, что на самом деле тут равенство.
@@ -720,7 +719,7 @@ $ integral_(RR^n) f(u-x) dot 1/(t^n) dot hat(g)(x/t) d x = integral_(RR^n) e^(2 
 #let lch = text(fill: rgb("#FF4500"), 13pt)[$bold("ЛЧ")$]
 #let pch = text(fill: rgb("#006400"), 13pt)[$bold("ПЧ")$]
 $ lch = integral_(RR^n) f(x-u) dot 1/(t^n) dot hat(g) (u/t) d u = integral_(RR^n) hat(f) (y) g(t y) e^(2pi i scal(x,y)) d y = pch $
-Чтобы получить свёртку с аппроксимативной единицей, нужны ещё условия: $hat(g) in L^1(RR^n), #h(2mm) integral_(RR^n) hat(g)(u) d u = 1$, и тогда $1/(t^n) hat(g)(u/t)$ действительно будет аппроксимативной единицей. Но как такую $g$ найти?\
+Чтобы получить свёртку с аппроксимативной единицей, нужны ещё условия: $hat(g) in L^1(RR^n), #h(1mm) integral_(RR^n) hat(g)(u) d u = 1$, и тогда $1/(t^n) hat(g)(u/t)$ действительно будет аппроксимативной единицей. Но как такую $g$ найти?\
 Пусть пока что $n=1$. Возьмём чётную $g_1 in cal(D)(RR)$, $g_1(0) = 1$ -- это сделать легко. Тогда $hat(g_1) in L^1$, так как она лежит в классе Шварца. Так как для класса $cal(D)(RR)$ формула обращения верна, можем написать
 $ g_1(x) = integral_(RR) hat(g_1)(xi) e^(2pi i x xi) d xi $
 Подставив туда $x=0$ получим $1 = integral_(RR) hat(g_1)(xi) d xi$.
@@ -749,29 +748,29 @@ $ lch arrow.long^(L^1) f. $
   Если $f,g in S(RR^n)$, то $ scal(f,g) = integral_(RR^n) f(x) overline(g(x)) d x = integral_(RR^n) hat(f) (xi) overline(hat(g)(xi)) d xi = scal(hat(f),hat(g)). $
 ]
 #corollary[
-  Если взять $f = g$, то получим, что $norm(f)_(L^2) = norm(g)_(L^2)$ для функций из класса Шварца.
+  Если взять $f = g$, то получим, что $norm(f)_(L^2) = norm(med hat(f) med)_(L^2)$ для функций из класса Шварца.
 ]
 #proof("теоремы")[
   Пусть $phi,psi in S(RR^n)$. Тогда по #link(<lemma2>)[лемме 2] $integral_(RR^n) phi(x) hat(psi)(x) d x = integral_(RR^n) hat(phi)(x) psi(x) d x$.// ПРОВЕРЯТЬ НОМЕР
   Положим $psi = caron(u)$, где $u in S(RR^n)$ -- произвольная. Получаем $ integral_(RR^n) phi(x) u(x) d x = integral_(RR^n) hat(phi) caron(u) (x) d x. $
   Положим $u = overline(v)$, тогда $caron(u)(x) = integral_(RR^n) overline(v(xi)) e^(2pi i scal(x,xi)) d xi = overline(integral_(RR^n) v(xi) e^(-2pi i scal(x,xi))) d xi = overline(hat(v)(x))$.
 ]
-Задачим линейный оператор $cal(F): phi arrow.long.bar hat(phi)$, только что мы доказали, что в норме $L^2$ это изометрия, то есть $norm(cal(F) phi)_(L^2) = norm(phi)_(L^2)$. По теореме о продолжении с плотного множества, $cal(F)$ можно линейно продолжить до линейного оператора на всём $L^2$. Для тех, кто с ней незнаком, поясним:\
+Зададим линейный оператор $cal(F): phi arrow.long.bar hat(phi)$, только что мы доказали, что в норме $L^2$ это изометрия, то есть $norm(cal(F) phi)_(L^2) = norm(phi)_(L^2)$. По теореме о продолжении с плотного множества, $cal(F)$ можно линейно продолжить до линейного оператора на всём $L^2$. Для тех, кто с ней незнаком, поясним:\
 Пусть $h in L^2(RR^n)$. Приблизим её функциями $phi_n in S(RR^n): quad norm(phi_n - h)_(L^2) arrow.long 0$.
 Тогда ${cal(F)phi_n}_(n in NN)$ -- последовательность Коши в $L_2$, так как $norm(cal(F)(phi_n)-cal(F)(phi_k)) = norm(cal(F)(phi_n-phi_k)) = norm(phi_n-phi_k)$.\
 Поэтому, так как $L^2$ банахово, эта последовательность куда-то сходится: $cal(F)(phi_n) arrow.long g$. Это $g$ не зависит от выбора аппроксимирующей последовательности и $norm(h)_(L^2) = norm(g)_(L^2)$.\
 Теперь за $cal(F)$ обозначаем уже продолженный на всё $L^2$ оператор, его мы и будем называть преобразованием Фурье в $L^2(RR^n)$. Тогда $cal(F)(L^2(RR^n)) = L^2(RR^n)$ потому что раз это изометрия, то образ является замкнутым подпространством, но так как класс Шварца там лежит и плотен, то образ совпадает с $L^2(RR^n)$. Из всего сказанного вытекает следующий факт.
 
-#underline([Факт]). Пусть $h in L^2(RR^n)$, $v_n in L^1(RR^n) sect L^2(RR^n)$ и $v_n arrow.long^(L^2) h$. Тогда $hat(v)_n arrow.long^(L^2) cal(F)(h)$.
-
-Также ясно, что $scal(cal(F)(u),cal(F)(v)) = scal(u,v)$. Это следует либо из поряризационного тождества, либо из сохраняния нормы для предела по функциям класса Шварца.
+#fact[
+  Пусть $h in L^2(RR^n)$, $v_n in L^1(RR^n) sect L^2(RR^n)$ и $v_n arrow.long^(L^2) h$. Тогда $hat(v)_n arrow.long^(L^2) cal(F)(h)$.
+]
+Также ясно, что $scal(cal(F)(u),cal(F)(v)) = scal(u,v)$. Это следует либо из поляризационного тождества, либо из сохраняния нормы для предела по функциям класса Шварца.
 == Ещё про формулы обращения
 Обозначим $cal(F)_(-)(h)(x) = cal(F)(h)(-x)$. Тогда $cal(F)_(-) = cal(F)^(-1)$, потому что для функций класса Шварца это верно. То есть формула обращения в $L^2$ верна.
 
-Напишем ещё одну порождающую функцию: $g(x) = e^(-pi abs(pi)^2), quad x in RR^n$. Она лежит в классе Шварца, давайте посчитаем её преобразование Фурье.
+Напишем ещё одну порождающую функцию: $g(x) = e^(-pi abs(x)^2), quad x in RR^n$. Она лежит в классе Шварца, давайте посчитаем её преобразование Фурье.
 + $n=1$. $g(x) = e^(-pi x^2)$.
-  $ hat(g)(xi) = integral_(-infinity)^infinity e^(pi x^2) dot e^(-2 pi i x xi) d x = integral_(-infinity)^infinity e^(-pi(x^2+2i x xi + (i xi)^2)) e^(-pi xi^2) d x = e^(-pi xi^2) integral_(-infinity)^infinity e^(-pi (x + i xi)^2) = 1 $
-  #text(fill: author)[ТУТ ЖЕ НЕ 1, ДА???]\
+  $ hat(g)(xi) = integral_(-infinity)^infinity e^(pi x^2) dot e^(-2 pi i x xi) d x = integral_(-infinity)^infinity e^(-pi(x^2+2i x xi + (i xi)^2)) e^(-pi xi^2) d x = e^(-pi xi^2) integral_(-infinity)^infinity e^(-pi (x + i xi)^2) d x = e^(-pi xi^2). $
   Для $xi = 0$ нам это известно, иначе рассмотрим следующий прямоугольник:
   #align(center,
   cetz.canvas({
@@ -888,7 +887,7 @@ $ frac((1-r)(1+r),(1-r)^2 + 2r(1-cos theta)) = frac((1-r)(1+r),(1-r)^2+4r sin^2 
 Из сходимости функций в $L^p$ следует, то можно выбрать подпоследовательность, сходящуюся почти всюду, но для каждой функции такая последовательность будет своя.
 == Максимальная функция Харди-Литтлвуда
 $f in L^1 (RR^n)$, $x in RR^n$. Посмотрим на $ (M f)(x) := sup_(r>0) 1/abs(B_r (x)) integral_(B_r (x)) abs(f(t) d t ), $
-где под модулем шарика подразумевается его объём. Получилась измеривая функция, ведь супремум можно брать по рациональным радиусам и тогда получится счётный супремум измеримых функций.
+где под модулем шарика подразумевается его объём. Получилась измеримая функция, ведь супремум можно брать по рациональным радиусам и тогда получится счётный супремум измеримых функций.
 #example[
   $n=1$, $f = chi_[-1,1]$. Тогда $M f (x) >= c/abs(x)$ для достаточно больших $x$, так что она получилась не суммируемой.
 ]
@@ -896,7 +895,7 @@ $f in L^1 (RR^n)$, $x in RR^n$. Посмотрим на $ (M f)(x) := sup_(r>0) 
 Откуда $abs({abs(g)>t}) = O (inline(1/t))$ -- условие не сильнее, чем $f in L^1$.
 #theorem("Харди-Литтлвуда")[
   Существует константа $C = C_n$, что $forall f in L^1 (RR^n), quad forall t>0$ $ abs({x : M f (x) > t}) <= frac(C_n norm(f)_(L^1),t). $
-]
+]<thl>
 Для знающих функциональный анализ это будет означать, что $M$ имеет слабый тип $(1,1)$.
 #definition[
   $T$ -- сублинейный функционал на измеримых функциях, если $ abs(T(alpha f + beta g)) <= C (abs(alpha) dot abs(T(f)) + abs(beta) dot abs(T(g))). $
@@ -929,7 +928,7 @@ $f in L^1 (RR^n)$, $x in RR^n$. Посмотрим на $ (M f)(x) := sup_(r>0) 
 ]
 #theorem("о дифференцировании")[
   Если $h$ локально суммируема, то почти всюду $ lim_(r->0) 1/abs(C_r) integral_(C_r + x) h(y) d y = h(x). $
-]
+]<tod>
 Её можно усилить теоремой Лебега, перенеся $h$ в левую часть и поставив модуль под интеграл.
 
 #note Пусть $f = chi_E$, где $E$ -- измеримое множество положительной меры. Возьмём в теореме о дифференцировании $C_r = B_r (0)$, тогда для почти всех $x$ $ lim_(r->0) 1/abs(B_r (x)) abs(B_r (x) sect E) = cases(1","quad x in E, 0","quad x in.not E) $
@@ -971,7 +970,7 @@ $ 1/abs(C_t) rho(x+C_t) arrow.long_("п.в.") f(x) $
 #proof[
   $Phi$ -- возрастающая функция, нужен предел $ lim_(h arrow 0+) frac(Phi(x+h)-Phi(x),h). $
   Пусть $rho$ -- мера Лебега-Стилтьеса, порождённая функцией $Phi$. Можем считать, что $x$ и $x+h$ -- точки непрерывности, ведь точек разрыва не более чем счётное число. Под пределом стоит $ frac(rho([x,x+h)), abs([x,x+h))), $
-  и это должно сойтись к плотности абсолютно непрерывной части меры $rho$ и производная как у функции $f$ из разложения $rho$ (#text(fill: author)[осторожно, какой-то скам]). Если в $x+h$ нет непрерывности, то всё равно всё хорошо, ведь скачки там не очень большие за счёт непрерывности в $x$.
+  и это должно сойтись к плотности абсолютно непрерывной части меры $rho$ и производная как у функции $f$ из разложения $rho$. Если в $x+h$ нет непрерывности, то всё равно всё хорошо, ведь скачки там не очень большие за счёт непрерывности в $x$. Получается, что $Phi = f(x) dot lambda + nu$, где мера $nu$ сосредоточена на множестве меры нуль (даже на счетном множестве, так как разрывов не более чем счетное число). Ну и тогда $f(x)$ – производная $Phi$ в точках, где нет разрыва.
 ]
 
 #theorem[
@@ -1045,9 +1044,7 @@ $ sup_N abs(f * Phi_N) <= C M_TT f. $
 #align(center, box(stroke: (gradient.linear(..color.map.rainbow)), inset: 1em)[$ integral_G d Omega = integral_(partial G) Omega $])
 - $Omega$ -- внешняя дифференциальная форма
 - $d$ -- внешний дифференциал
-- $G$ -- ориенируемое многообразие с краем $partial G$, $dim G = k$, $G subset.eq RR^n$.\
-Тут разгон про дифференциальные формы, который я не записал.
-
+- $G$ -- ориенируемое многообразие с краем $partial G$, $dim G = k$, $G subset.eq RR^n$.
 #definition[
   Многообразие с краем -- хаусдорфово топологическое пространство со счётной базой, такое, что у каждой точки есть окрестность, гомеоморфная либо кубу $(-1,1)^k$, либо полукубу $(-1,0] times (-1,1)^(k-1)$.
 ]
@@ -1256,7 +1253,7 @@ $ eq.circle integral_(V_0) angle.l f(X(u)), N(u) angle.r d u = integral_(V_0) an
 ]
 
 == Формула Коши-Грина
-#note Рассмотрим $RR^d$. Пусть в дивергенции формы $Phi$ только одна компонента ($(partial g)/(partial x_j)$) ненулевая. Пусть $n = (n_1, dots, n_d)$ -- нормаль, которая определяется на $partial Omega$. Тогда формула Остроградского-Гаусса упрощается до вида
+#note Рассмотрим $RR^d$. Пусть в дивергенции формы $Phi$ только одна компонента $(partial g)/(partial x_j)$ ненулевая. Пусть $n = (n_1, dots, n_d)$ -- нормаль, которая определяется на $partial Omega$. Тогда формула Остроградского-Гаусса упрощается до вида
 $ #h(7mm) integral_Omega (partial g) / (partial x_j) d lambda_d = integral_(partial Omega) g n_j d lambda_(partial Omega). #h(5mm) (star) $
 
 
@@ -1293,4 +1290,228 @@ $ d Phi = ((partial f_2)/(partial d x_1) - (partial f_1)/(partial x_2)) d x_1 an
 $ integral_M scal("rot"f,n) d lambda_M = integral_(partial M) Phi. $
 
 
+// Лекция 15 (11.12.2024)
+= И вновь про Фурье
+Помним, что если $f, g in L^1(RR^n)$, то $hat(f * g) (xi) = hat(f)(xi) dot hat(g) (xi)$. 
+#proposition[
+  $hat(phi psi) = hat(phi) * hat(psi)$, если $phi, psi in L^2(RR^n)$.
+]<pseven>
+Выражение осмысленно, так как если $phi, psi in L^2$, то $phi psi in L^1$ (по КБШ) и значит есть преобразование Фурье от левой части.\
+А в правой части $hat(phi), hat(psi) in L^2$, значит из свертка определена и лежит в $L^infinity$ (тоже по КБШ).
+#proof[
+  Пусть $phi,psi in S(RR^n)$, тогда ясно: мы уже знаем, что $f * g = (hat(f) dot hat(g)) caron$.\
+  Если подставить $u = hat(f), v = hat(g)$, то получится $caron(u) * caron(v) = (u v)caron$. Если $phi(x) = u(-x), psi(x) = v(-x)$, то как раз получится $hat(phi) * hat(psi) = (phi psi)hat$. 
 
+  Пусть $Phi,Psi in L^2(RR^n)$, тогда будем смотреть на последовательности $phi_k, psi_k in SS(RR^n)$.
+  $ phi_k ->_(L^2) Phi, psi_k ->_(L^2) Psi quad "и" quad hat(phi)_k ->_(L^2) hat(Phi), hat(psi)_k ->_(L^2) hat(Psi). $
+  Уже знаем, что $(phi_k dot psi_k )^and = hat(phi)_k * hat(psi)_k$.
+    
+  $phi_k psi_k ->_(L^1) Phi Psi$, так как оценивая по неравенству треугольника и КБШ: $ norm(phi_k psi_k - Phi Psi)_(L^1) <= norm(phi_k)_(L^2) dot norm(psi_k - Psi)_(L^2) + norm(Psi)_(L^2) dot norm(phi_k - Phi)_(L^2) ->_(k -> infinity) 0. $
+  
+  $hat(phi)_k * hat(psi)_k ->_(L^infinity) hat(Phi) * hat(Psi)$, так как разность в $L^infinity$ оценивается по КБШ:
+  $ norm(hat(phi)_k * hat(psi)_k - hat(Phi) * hat(Psi))_(L^infinity) = norm((hat(psi)_k - hat(Psi)) * hat(phi)_k + (hat(phi)_k - hat(Phi)) * hat(Psi)) <= $ $ <= norm(hat(phi)_k)_(L^2) dot norm(hat(psi)_k - hat(Psi))_(L^2) + norm(hat(Psi))_(L^2) dot norm(hat(phi)_k - hat(Phi))_(L^2) ->_(k -> infinity) 0. $
+  В последнем переходе использовалось неравенство, что если $u, v in L^2(RR^n),$ то $ norm(u * v)_(L^infinity) <= norm(u)_(L^2) dot.c norm(v)_(L^2). $
+
+]
+#corollary[
+  $u in (L^1(RR^n))^and #h(2mm) iff #h(2mm) exists phi,psi in L^2:phi*psi=u$.
+]
+#proof[
+  $arrow.l.double$: #h(2mm) Пусть $u = phi * psi$ для $phi, psi in L^2$.\
+  Существуют $t, z in L^2$ такие, что $hat(t) = phi, hat(z) = psi$, при этом $t dot z in L^1$. Тогда $ u = phi * psi = hat(t) * hat(z)= (t dot z)^and in (L^1(RR^n))^and. $
+
+  $arrow.r.double$: #h(2mm) Пусть $u = hat(f), f in L^1(RR^n)$. Хотим представить $f$ в виде $f=g h, space g,h in L^2$.\
+  Подойдут $g=sqrt(|f|)$ #h(1mm) и #h(1mm) $h = inline(f/g)$ (в точках, где $f = 0 = g$, $h$ определяем как 0).
+]
+
+== Гармоническое сопряжение и преобразование Гильберта
+Будем рассматривать $RR$ как границу открытой верхней полуплоскости $RR^2_+ = {(x,t)| x in RR, t>0}$.
+В ней задано ядро Пуассона $ P_t (x) = 1/pi dot t/(x^2 + t^2). $
+Пусть $u in L^2(RR)$. Тогда $U(dot, t) = P_t * u$ -- гармоническая функция в $RR^2_+$.\
+Аналогично определим $V(dot,t)=P_t * v$ для $v in L^2(RR)$.
+
+Зададимся вопросом, когда $U$ и $V$ гармонически сопряжены? Как это соотношение выразить в терминах $u$ и $v$?
+
+Вспоминаем уравнения Коши-Римана:
+$(partial U) / (partial x) = (partial V) / (partial t)$ и $(partial U) / (partial t) = -(partial V) / (partial x)$ -- условия гармонической сопряженности.
+
+Зафиксируем $t$ и будем брать преобразование Фурье по $x$: от левой и правой частей первого уравнения.
+
+$ ((partial U)/(partial x))^and (xi) =  2pi i xi dot hat(U)(xi,t) = 2pi i xi dot (P_t * u) hat (xi) = 2pi i xi dot hat(P)_t (xi) dot hat(u) (xi) = 2 pi i xi hat(u) (xi) e^(-2 pi t abs(xi)), $
+$ ((partial V) / (partial t))^and (xi) = partial/(partial t) (hat(v) (xi) hat(P)_t (xi)) = partial/(partial t) (hat(v) (xi) e^(-2 pi t abs(xi))) = - 2 pi abs(xi) hat(v) (xi) e^(-2 pi t abs(xi)). $
+Приравниваем правые части и получаем после сокращения, что 
+$ hat(v)(xi) = -i xi/(abs(xi)) hat(u)(xi) quad arrow.r.double quad  hat(v)(xi) = -i "sign"(xi) hat(u)(xi). $
+Преобразование Гильберта будет сопоставлять функции $u$ такую функцию $v$, чтобы была гармоническая сопряженность.
+#definition[
+  Преобразование Гильберта -- функция $H: L^2(RR) -> L^2(RR)$, заданная как $ H(u) = (hat(u)(xi) dot (-i "sign"#h(0.5mm)xi))caron. $
+]
+Понятно, что это изометрия $L^2 -> L^2$.
+
+Как написать формулу для $H(u)$, не прибегая к преобразованию Фурье? Пусть $u in L^2(RR)$, тогда мы знаем, что
+$ v = H(u) in L^2(RR), quad (U(dot, t))^and = hat(u)(xi) e^(-2pi|xi|t), $ $ (V(dot, t))^and = underbrace(hat(u)(xi), in L^2) underbrace((-i "sign" xi) e^(-2pi|xi|t), in L^2 sect L^1). $
+Рассмотрим второе уравнение и применим к нему #link(<pseven>)[предложение 7]: $ forall phi, psi in L^2 space (phi psi) caron = caron(phi) * caron(psi). $
+Тогда получится, что
+$V(dot,t) = u * K_t$. Найдём $K_t = ((-i "sign"#h(0.5mm)xi) e^(-2pi abs(xi)t)) caron$:
+
+$ K_t (x) = integral_(-infinity)^(+infinity) (-i "sign"#h(0.5mm)xi dot e^(-2pi abs(xi)t))e^(2pi i xi x) d xi = $
+
+$ = integral_(-infinity)^0(dots) + integral_0^(infinity)(dots) = -i[integral_(-infinity)^0 -e^(2pi xi(t+i x)) d xi + integral_0^(infinity) e^(2pi xi(-t+i x))  d xi]= $
+
+$ = -i[- 1/(2pi(t+i x)) - 1/(2pi(-t+i x))] = i/(2pi) dot (-t+i x+t+i x)/(-x^2 - t^2) = - i/(pi) dot (i x)/(t^2 + x^2) = 1/(pi) dot (x)/(t^2 + x^2). $
+Итого получаем формулу
+$ V(x,t) = 1/pi integral_(-infinity)^(infinity) u(x-y) y /(y^2+t^2) d y. $ 
+
+$V(dot,t) ->_(t->0) v(x)$ в $L^2$ и почти всюду. Получим еще формулу для $v(x)$.
+
+Пусть $u in cal(D)(RR)$, зафиксируем $x in RR$. Пусть $A$ -- достаточно большое число, что отрезок $[-A, A]$ содержит носитель функции $u(x - y)$.
+$ V(x,t) = 1/pi integral_(-infinity)^(infinity) u(x-y) y /(y^2+t^2) d y = 1/pi integral_(-A)^(A) u(x-y) y /(y^2+t^2) d y eq.circle $
+Поскольку функция $y/(y^2 + t^2)$ -- нечетная, интеграл от неё по $[-A, A]$ равен нулю, и значит интеграл не изменится, если из него вычесть $integral_(-A)^A u(x) y/(y^2 + t^2) d y$:
+$ eq.circle  1/pi integral_(-A)^(A) (u(x-y) -u(x))y /(y^2+t^2) d y $ 
+
+Так как $abs(u(x-y) - u(x)) <= C abs(y)$ (поскольку $u in cal(D)(RR)$), то подынтегральное выражение ограничено этой же константой $C$ и $ 1/pi integral_(-A)^(A) (u(x-y) -u(x))y /(y^2+t^2) d y arrow.long_(t->0) 1/pi integral_(-A)^(A) (u(x-y) -u(x))/ y  d y = $  $ = 1/pi lim_(epsilon->0) integral_([-A,A] without (-epsilon,epsilon)) (u(x-y) -u(x))/ y  d y = 1/pi lim_(epsilon->0) integral_([-A,A] without (-epsilon,epsilon)) (u(x-y))/ y  d y = 1/pi lim_(epsilon->0) integral_(RR without (-epsilon, epsilon)) u(x-y)/y d y. $
+Таким образом мы получили формулу для $H(u)$:
+
+#proposition[
+  Если $u in cal(D)(RR)$, то $ H(u) = 1/pi lim_(epsilon ->0)integral_(RR without (-epsilon, epsilon)) u(x - y)/y d y. $ 
+]<p8>
+Иногда это обозначается как#footnote[#h(1mm) от французского _valeur principale_ -- главное значение] $1/pi "v.p." u * (1/y)$.
+
+Вообще, мы не сильно пользовались тем, что $u in cal(D)(RR)$: пользовались тем, что компактный носитель и тем, что в точке $x$ существует производная $f'(x)$.
+
+На самом деле это верно для всех $u in L^2$. Чтобы это доказать, надо пользоваться плотностью $D(RR)$ в $L^2(RR)$ и следующим фактом:
+#fact[Пусть $1<p<infinity$. Существует константа $C_p$, такая что $forall u in D(RR)$
+  $ norm(H (u))_(L^p (RR)) <= C_p norm(u)_(L^p (RR)). $
+]
+== Оценки на двойные частные производные
+Рассмотрим $RR^d$ и $u in S(RR^d)$ и пусть известен лапласиан $laplace u$.\
+Хотим оценить $partial_k partial_j u$. Посмотрим на преобразования Фурье:
+
+$ hat(laplace u) (xi)= sum^d_(s=1)(2pi i xi_s)^2 dot hat(u)(xi), $ $ (partial_k partial_j u)^and (xi)= (2pi i xi_k) (2pi i xi_j) dot hat(u)(xi). $
+
+Тогда $ (partial_k partial_j u(x))^and (xi)= (xi_k xi_j)/(|xi_1|^2+dots+|xi_d|^2) dot (laplace u)^and (xi) $
+
+Дробь в правой части уравнения ограничена единицей. Похожими действиями, как мы делали когда получали формулу для #link(<p8>)[предложения 8], можно получить, что
+
+$ partial_k partial_j u(x) = lim_(epsilon->0) integral_(|y|>epsilon) laplace u(x-y) K(y) d y, $
+где $K$ -- некоторое сингулярное ядро, имеющее порядок $1/abs(y)^d$ в окрестности нуля.
+== Случай окружности
+Как обычно, отождествляем $[-pi,pi] tilde TT$. Пусть имеется $u in L^2 (TT)$ с рядом Фурье $u(z) = sum_(n in ZZ) hat(u)(n) z^n$, где $z = e^(i t)$. Для ещё одной $v in L^2 (TT)$ напишем аналогичное представление: $v(z) = sum_(n in ZZ) hat(v)(n) z^n$.
+
+Возьмём $r>0$, тогда интегралы Пуассона $ P_r * u (zeta) = sum_(n in ZZ) r^abs(n) hat(u) z^n, $ $ P_r * v (zeta) = sum_(n in ZZ) r^abs(n) hat(v) z^n, $
+где $zeta = r z$. Пусть функции $u$ и $v$ вещественны, хотим узнать, когда $u+v$ аналитична.
+
+Понятно, что чтобы отрицательные части рядов сократились, необходимо
+$ hat(u)(-n) + i hat(v)(n) = 0 quad "при" n<0. $
+Если $n>0$, то $ overline(hat(u)(-n)) = overline(1/(2 pi) integral_(-pi)^pi u(e^(i theta)) e^(i n theta) d theta) = 1/(2pi) integral_(-pi)^(pi) u(e^(i theta)) e^(-i n theta) d theta = hat(u)(n). $
+Нетрудно показать, что отсюда следует, что $ hat(v)(n) = -i "sign"#h(0.5mm)n dot hat(u)(n). $
+#fact[
+  $v(t) = 1/pi "v.p." integral_(-pi)^pi u(t-y) ctg y/2 d y.$
+]
+Доказательство факта также оставляется читателю в качестве несложного упражнения.
+
+// Лекция 16 (18.12.2024)
+== Преобразование Гильберта и максимальная функция Харди-Литлвуда
+#theorem[
+  $forall p in (1, +infinity) space exists C_p: space  norm(H f)_(L^p) <= C_p norm(f)_(L^p). $
+]<t22>
+Надо сделать некоторые предположения про $f$, ведь нам надо, чтобы она была из $L_p$, но мы не знаем что такое $H f$, так что будем считать что $f in cal(D)(RR)$ или $f in L^1(RR) sect L^2(RR)$. А далее легко продолжить по непрерывности из-за плотности такого множества в $L^p$. Мы докажем эту теорему только для $1 < p < 2$.
+
+#note Преобразование Гильберта не сохраняет суммируемость и ограниченность.\
+Действительно, пусть $g = chi_([-1, 1])$. Тогда $H g = inline(log((abs(x+1))/(abs(x-1))))$ (по формуле из #link(<p8>)[предложения 8]). Оно не ограничено и не суммируемо. Это также показывает, почему мы убрали $p=1$ и $p=infinity$ из теоремы.
+#theorem[
+  Оператор $H$ имеет слабый тип $(1,1)$, то есть:
+  $ exists C space forall t>0 space |{abs(H f)>t}| <= C/t norm(f)_(L^1), " если" f in L^1(RR) sect L^2(RR). $
+]<t23>
+#proposition[Пусть $f in L^2(RR)$. Пусть $x in RR$ и $"dist"(x, supp#h(0.5mm)f) > 0$. Тогда
+$ H f (x) = 1/pi "v.p." integral_(-infinity)^(+infinity) (f(y))/(x-y) d y. $
+]<p9>
+То есть формула из #link(<p8>)[предложения 8] верна для более широкого класса функций.
+#proof[
+  Рассмотрим последовательность $phi_n in D(RR)$ такую, что $phi_n arrow.long_(L^2) f$ и $"dist"(x, supp#h(0.5mm)phi_n) > delta/2$, где $delta = "dist"(x, supp#h(0.5mm)f)$.
+  Для них, по #link(<p8>)[предложению 8], уже верно, что
+  $ H phi_n (x) = 1/pi "v.p." integral_(-infinity)^(+infinity) (phi_n (y))/(x-y) d y = 1/pi integral_(-infinity)^(+infinity) (phi_n (y))/(x-y) d y = 1/pi integral_(abs(x-y)>delta/2) (phi_n (y))/(x-y) d y $
+  (v.p. убрали, потому что в окрестности радиуса $delta/2$ от $x$ $phi_n = 0$).
+  $H phi_n arrow.long_(L^2) H f$, тем самым\ $exists n_j: quad H phi_n_j -> H f$ почти всюду. Также по неравенству Коши-Буняковского:
+  $ integral_(abs(y-x)>delta/2)(abs(f(y)-phi_n (y)))/(abs(x-y)) d y <= (med integral_(abs(y-x) > delta/2)1/(abs(x-y)^2) d y) norm(f-phi_n)_(L^2), $ 
+а так как левый множитель правой части ограничен чем-то, зависящим от $delta$, а правый стремится к нулю, получаем равномерную сходимость по $x$.
+]
+Теперь мы знаем что можно перейти в $L^2$.
+#lemma[
+  Пусть $g in L^1(RR) sect L^2(RR)$,
+  $supp#h(0.5mm)g subset I, space I-"отрезок", med integral_I g = 0$.
+   Тогда $ integral_(R without 2I) |H g| <= C norm(g)_(L^1). $
+]<l6>
+Здесь $2I$ - отрезок, получающийся из отрезка $I$ гомотетией с центром в центре $I$ и коэффициентом $2$.
+#proof[
+   Пусть $x in.not 2I$. Пусть $x_0$ -- центр $I$. Для почти всех таких $x$ (по #link(<p9>)[предложению 9]): 
+   $ H g(x) = 1/pi integral_RR (g(y))/(x-y) d y = 1/pi integral_I (g(y))/(x-y) d y eq.circle $
+   Воспользуемся тем, что $integral_I g(y) d y = 0$:
+   $ eq.circle 1/pi integral_I g(y)(1/(x-y) - 1/(x-x_0))d y = 1/pi integral_I g(y) (y-x_0)/((x-x_0)(x-y)). $
+Теперь посчитаем:
+   $
+   integral_(RR without 2I) abs(H g(x)) d x <= integral_(RR without 2I) integral_I abs(g(y))(abs(x_0-y))/(abs(x-x_0) dot abs(x-y)) d y d x = \
+   = integral_I integral_(RR without 2I) abs(g(y))(abs(x_0-y))/(abs(x-x_0) dot abs(x-y))  d x d y <= C_1 integral_I abs(g(y)) integral_(RR without 2I) (abs(I))/(abs(x-x_0)^2) d x d y <= C_2 integral_I abs(g(y)) d y $
+   В моменте где вылезла $C_1$ мы воспользовались тем, что $1/2 abs(x - x_0) <= abs(x - y) <= abs(x - x_0)$. Константа $C_2$ не зависит от длины отрезка $I$, так как в первообразной внутреннего интеграла вылезет $inline(1/(abs(I)))$, которое сократится.
+]
+
+#proof(link(<t23>)[теоремы 23])[
+  Вспомним, что такое максимальная функция Харди-Литлвуда: $ M f(x)= sup{1/(|I|) integral_I |f(y)| d y:  I - "интервал с центром в" x}. $
+  Это центрированная максимальная функция. Определим нецентрированную максимальную функцию:
+  $ tilde(M) f (x) := sup{1/(|I|) integral_I |f(y)| d y : x in I} $
+  Заметим, что $M f (x) <= tilde(M) f (x) <= 2 M f(x)$. Левое неравенство очевидно, а правое объясняется тем, что для каждого отрезка, содержащего $x$ есть отрезок длиннее не более чем в 2 раза с центром в $x$, содержащий данный отрезок. Далее считаем, что отрезки $I$ -- открытые.
+
+  Зафиксируем $t > 0$ и рассмотрим множество $G = {x | tilde(M) f (x) > t}$.
+
+  Пусть $x in G$. Тогда существует $I$: $1/(|I|) integral_I |f(u)| d u > t$, $x in I$. Значит, $G$ -- открытое множество на $RR$. Представим его в виде $G = union.big Delta_k$, где $Delta_k$ -- непересекающиеся интервалы на $RR$.
+
+  Отметим, что $1/(|Delta_k|) integral_(Delta_k) |f(u)| d u <= t$. Потому что если бы был знак больше, то можно было бы сдвинуться на какой-то маленький $epsilon$ от границы отрезка $Delta_k$, тем самым расширив его, чтобы интеграл остался быть больше $t$. Тогда есть точки, сколь угодно близкие к отрезку $Delta_k$, которые тоже лежат в $G$, противоречие.
+
+  Также, по #link(<thl>)[теореме Харди-Литтлвуда], $|G| <= |{x : M f (x) > t}| <= C/t ||f||_(L^1)$.
+
+  Рассмотрим $f in L^1(RR) sect L^2(RR)$ -- функцию из формулировки теоремы. 
+
+  Представим её в виде $f = g+h$, где $ g(x) = cases(f(x)",   если" x in.not G, 1 / (|Delta_k|) integral_(Delta_k) f(y) d y",   иначе") $
+
+  А $h$ определим равным тому что осталось, то есть
+  $h(u) = sum_k chi_(Delta_k)(f(u) - 1/(|Delta_k|)integral_(Delta_k) f(y) d y)$. Понятно, что тогда $forall k space integral_(Delta_k) h(u) d u =0$.
+
+  #note Для почти всех $x space abs(g(x)) <= t$. Потому что для $x in.not G: space M g (x) <= t$, тогда по #link(<tod>)[теореме о дифференцировании] верно $g(x) <= C dot t$ почти всюду (потому что по честному там не $M$ а $tilde(M)$. А в точках из $G$: $g(x) = integral_(Delta_k) f(y) d y <= t$)
+
+  Также заметим, что $norm(g)_(L^1) = integral_RR abs(g) = integral_(RR without G) abs(f) + sum_k integral_Delta_k abs(g) = integral_(RR without G) abs(f) + sum_k integral_Delta_k abs(f) = norm(f)_(L^1)$, а также
+  $ integral_RR |g|^2 <= integral_RR t |g| = t ||g||_(L^1) <= t ||f||_(L^1). $  
+  Значит, $g in L^1(RR) sect L^2(RR)$. Тогда и $h = f - g in L^1 sect L^2$.
+
+  Хотим оценить $abs({abs(H f) > 2 t})$:
+  $ abs({abs(H f) > 2 t}) <= abs({abs(H g) > t}) + abs({abs(H h) > t}). $
+  Первое слагаемое оценивается неравенством Чебышёва и фактом:
+  $ abs({abs(H g) > t}) <= 1/t^2 integral_RR abs(H g)^2 <= 1/t^2 integral_RR abs(g)^2 <= (t norm(f)_(L^1))/(t^2) = (norm(f)_(L^1))/t. $
+  Второе слагаемое оценивается так. Обозначим за $tilde(G) := union 2 Delta_k$ (каждый из отрезков $Delta_k$ удвоили гомотетией с центром в середине $Delta_k$.) Тогда
+  $ abs({abs(H h) > t}) <= abs(tilde(G)) + abs({x in.not tilde(G) : abs(H h) > t}) $
+  При этом $abs(tilde(G)) <= 2 abs(G) <= (2 C norm(f)_(L^1))/t$. Осталось оценить эту штуку: $abs({x in.not tilde(G) : abs(H h) > t})$.
+
+  Представим $h = sum h_k$, где $h_k (x) := chi_(Delta_k) dot (f(x) - 1/(|Delta_k|) integral_(Delta_k) f(u) d u)$.
+
+  Тогда, пользуясь #link(<l6>)[леммой 6], $ integral_(RR without tilde(G)) abs(H h) <= sum_k integral_(RR without tilde(G)) abs(H h_k) <= sum_k integral_(RR without 2 Delta_k) abs(H h_k) <= С sum_k norm(h_k)_(L^1) <= D norm(f)_(L^1) $
+  откуда по неравенству Маркова
+  $ abs({X in.not tilde(G), abs(H h (x)) > t}) <= 1/t integral_(RR without tilde(G)) abs(H h) <= C/t norm(f)_(L^1). $
+]
+#proof(link(<t22>)[теоремы 22])[
+  
+  Докажем, что если $f in L^1(RR) sect L^2(RR)$, а $1<p<2$, $norm(H f)_(L^p) <= C_p norm(f)_(L^p)$. Для $p > 2$ надо пользоваться двойственностью.
+
+  Будем обозначать $lambda(t) = abs({x: abs(H f (x)) > t})$. Чтобы не путаться, $m$ -- мера Лебега.
+  $ integral_RR abs(H f)^p d m = sum_(j in ZZ) integral_B abs(H f)^p d m <= sum_(j in ZZ) (2^(j+1))^p lambda (2^j), $
+  где $B = {x in RR : 2^j < abs(H f (x)) <2^(j+1)}$. Представим функцию $f$  как сумму: $ f=f_1+f_2, space f_1 = f chi_({abs(f) > t}), f_2 = f chi_({abs(f) <= t}). $ Обе функции $f_1, f_2 in L^1(RR) sect L^2(RR)$. Оценим $lambda(t)$:
+  $ lambda(t) <= abs({x: abs(H f (x)) > t}) <= abs({x: abs(H f_1 (x)) > t/2}) + abs({x: abs(H f_2 (x)) > t/2}). $
+  Первое слагаемое оценивается как в предыдущей теореме: $abs({x: abs(H f_1 (x)) > t/2}) <= C/t norm(f_1)_(L^1)$.\
+  Второе слагаемое оценивается по неравенству Чебышева:
+  $ abs({x: abs(H f_2 (x)) > t/2}) <= C/t^2 norm(f_2)_(L^2)^2. $
+  $ abs({abs(H f)>t}) <= C(1/t integral_(abs(f)>t) abs(f) + 1/t^2 integral_(abs(f) <= t)abs(f)^2). $
+  Возвращаемся к оценке $integral_RR abs(H f)^p d m$:
+  $ sum_(j in ZZ) (2^(j+1))^p lambda (2^j) <= C sum_(j in ZZ) 2^(p(j+1)) 1/(2^j) integral_(abs(f) > 2^j) abs(f) + C sum_(j in ZZ) 2^(p(j+1)) 1/(2^(2 j)) integral_(abs(f) <= 2^(j)) abs(f)^2 $
+
+  Оценим#footnote[#h(1mm) константа $C$ каждый раз будет возникать новая] сначала первую сумму (здесь мы пользуемся что $p > 1$):
+  $ C sum_(j in ZZ) 2^(p(j+1)) 1/(2^j) integral_(abs(f) > 2^j) abs(f) <= C sum_(j in ZZ) (2^(p(j+1)) 1/(2^j) sum_(k >= j) integral_(2^k < abs(f) <= 2^(k+1)) abs(f) ) <= \ <= C sum_(j in ZZ) ( 2^((p-1)j) sum_(k >= j)  2^(k+1) abs({2^k <= abs(f) <= 2^(k+1)}) ) <= C sum_(k in ZZ) sum_(j <= k) 2^((p-1)j) 2^k abs({2^k < abs(f) <= 2^(k+1)}) <= \ <= C sum_(k in ZZ) 2^(p k) abs({2^k < abs(f) <= 2^(k+1)}) <= C norm(f)_(L^p)^p. $
+  Оценим вторую сумму (здесь мы пользуемся тем, что $p < 2$):
+  $ C sum_(j in ZZ) 2^(p(j+1)) 1/(2^(2 j)) integral_(abs(f) <= 2^(j)) abs(f)^2 <= C sum_(j in ZZ) (2^(p(j+1)) 1/(2^(2j)) sum_(k <= j - 1) integral_(2^k < abs(f) <= 2^(k+1)) abs(f)^2) <= \ <= C dot sum_(j in ZZ) ( 2^((p-2)j) sum_(k <= j - 1)  2^(2k+2) abs({2^k <= abs(f) <= 2^(k+1)})) <= \ <= C dot sum_(k in ZZ) sum_(j >= k + 1) 2^((p-2)j) 2^(2k+2) abs({2^k < abs(f) <= 2^(k+1)}) <= C dot sum_(k in ZZ) 2^(p k) abs({2^k < abs(f) <= 2^(k+1)}) <= C dot.c||f||_(L^p)^p $
+]
