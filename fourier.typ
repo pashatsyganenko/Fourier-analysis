@@ -1044,7 +1044,7 @@ $ sup_N abs(f * Phi_N) <= C M_TT f. $
 #align(center, box(stroke: (gradient.linear(..color.map.rainbow)), inset: 1em)[$ integral_G d Omega = integral_(partial G) Omega $])
 - $Omega$ -- внешняя дифференциальная форма
 - $d$ -- внешний дифференциал
-- $G$ -- ориенируемое многообразие с краем $partial G$, $dim G = k$, $G subset.eq RR^n$.
+- $G$ -- ориентируемое многообразие с краем $partial G$, $dim G = k$, $G subset.eq RR^n$.
 #definition[
   Многообразие с краем -- хаусдорфово топологическое пространство со счётной базой, такое, что у каждой точки есть окрестность, гомеоморфная либо кубу $(-1,1)^k$, либо полукубу $(-1,0] times (-1,1)^(k-1)$.
 ]
